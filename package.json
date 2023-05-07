@@ -1,0 +1,23 @@
+{
+  "name": "ucharging-web",
+  "version": "1.0.0",
+  "description": "uCharging - Car Charging Reservastion application for web",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon test.js",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rogerferdinan/ucharging-web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rogerferdinan/ucharging-web/issues"
+  },
+  "homepage": "https://github.com/rogerferdinan/ucharging-web#readme",
+  "dependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
