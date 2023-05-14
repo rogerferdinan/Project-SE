@@ -1,0 +1,40 @@
+body{
+    background-image: linear-gradient(#A2E3DE,#9AE7E2,#8FE2DC,#82E1D9,#79C6C4,#6FB6B7);
+    background-repeat: no-repeat;
+    height : 100vh ;
+}
+
+.check-custom{
+    margin-top: 25vh;
+    height: 25vh;
+}
+
+.check-text{
+    margin-top: 70px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 30px;
+    font-family: "poppins";
+    font-weight: bolder;
+}
+
+.reserve-custom{
+    margin-top: 25vh;
+    height: 25vh;
+}
+.reserve-text{
+    
+    margin-top: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 30px;
+    font-family: "poppins";
+    font-weight: bolder;
+    animation: mymove 5s infinite;
+    animation-timing-function: ease;
+}
+
+@keyframes mymove {
+    from {left: 0px;}
+    to {left: 300px;}
+}
