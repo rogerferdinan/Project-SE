@@ -1,7 +1,7 @@
 const express = require("express")
 const loginRouter = express.Router()
 const path = require("path")
-const authenticate = require("../helper/authenticate")
+const authenticate = require("../feature/authenticate")
 const checkLogin = require("../helper/check_login")
 
 loginRouter.get('/login', checkLogin, (req, res) => {
@@ -12,7 +12,7 @@ loginRouter.get('/login', checkLogin, (req, res) => {
     }
 })
 
-loginRouter.post('/login', (req, res) => {
+loginRouter.post('/login', async(req, res) => {
     const username = req.body.username
     const password = req.body.password
 
@@ -23,7 +23,8 @@ loginRouter.post('/login', (req, res) => {
         return null
     }
     
-    success_login = authenticate(username, password)
+    success_login = await authenticate(username, password)
+    console.log(success_login)
     if(success_login) {
         req.session.loggedin = true
         res.redirect('/')
