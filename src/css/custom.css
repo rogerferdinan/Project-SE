@@ -1,0 +1,28 @@
+.check-custom{
+    margin-top: 25vh;
+    height: 25vh;
+}
+
+.check-text{
+    margin-top: 70px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 30px;
+    font-family: "poppins";
+    font-weight: bolder;
+}
+
+.reserve-custom{
+    margin-top: 25vh;
+    height: 25vh;
+}
+.reserve-text{
+    
+    margin-top: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 30px;
+    font-family: "poppins";
+    font-weight: bolder;
+}
+
