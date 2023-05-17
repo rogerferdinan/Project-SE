@@ -1,6 +1,6 @@
 body{
-    margin: 0;
-    padding: 0;
+    background-image: linear-gradient(#A2E3DE,#9AE7E2,#8FE2DC,#82E1D9,#79C6C4,#6FB6B7);
+    
 }
 .header{
     background-size: cover;
@@ -9,23 +9,23 @@ body{
     background-repeat: no-repeat;
 }
 .index{
-    background-image: url('../assets/landing_page.png');
+    background-image: url('../asset/landing_page.png');
     height: 100vh;
 }
 .signup{
-    background-image: url('../assets/background_color.png');
+    background-image: url('../asset/background_color.png');
     height: 100vh;
 }
 .signin{
-    background-image: url('../assets/background_color.png');
+    background-image: url('../asset/background_color.png');
     height: 100vh;
 }
 .home{
-    background-image: url('../assets/background_color.png');
+    background-image: url('../asset/background_color.png');
     height: 100vh;
 }
 .profile{
-    background-image: url('../assets/background_color.png');
+    background-image: url('../asset/background_color.png');
     height: 100vh;
 }
 .get-started{
