@@ -1,6 +1,6 @@
 const pool = require("./pool_connection");
 
-async function validateUsernamePassword(email, password) {
+async function checkUser(email, password) {
     const conn = await pool.getConnection()
     const [rows, fields] = await conn.query(`
     SELECT 
@@ -17,13 +17,13 @@ async function validateUsernamePassword(email, password) {
 
 async function addUser(first_name, last_name, email, phone_number, password) {
     const conn = await pool.getConnection()
-    const [rows, fields] = await conn.query("INSERT INTO users(first_name, last_name, email, phone_number, password) value(?, ?, ?, ?, ?)", [first_name, last_name, email, phone_number, password])
+    const rows = await conn.query("INSERT INTO users(first_name, last_name, email, phone_number, password) value(?, ?, ?, ?, ?)", [first_name, last_name, email, phone_number, password])
     conn.release()
     console.log(rows)
     return rows
 }
 
 module.exports = {
-    validateUsernamePassword,
+    checkUser,
     addUser
 }

@@ -6,11 +6,10 @@ async function authenticate(email, password) {
     const hash_password = hashString(password)
     
     // pass email and password -> database
-    const result = await user.validateUsernamePassword(email, password)
+    const result = await user.checkUser(email, hash_password)
     if (!result) {
         return false
     }
-    console.log(result)
     return true
 }
 

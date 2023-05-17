@@ -1,7 +1,10 @@
+const hashString = require("../helper/hashString")
 const { addUser } = require("../middleware/user")
 
-function createNewAccount(first_name, last_name, email, phone_number, password) {
-    addUser(first_name, last_name, email, phone_number, password)
+async function createNewAccount(first_name, last_name, email, phone_number, password) {
+    const hash_password = hashString(password)
+    const result = await addUser(first_name, last_name, email, phone_number, hash_password)
+    console.log(result)
 }
 
 module.exports = createNewAccount

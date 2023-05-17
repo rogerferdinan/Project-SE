@@ -1,10 +1,32 @@
 const express = require("express")
+const createNewAccount = require("../feature/create_new_user")
 const registerRouter = express.Router()
+const path = require("path")
 
 registerRouter.get("/register", (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'src', 'html', 'login.html'))
+    res.sendFile(path.join(__dirname, '..', 'src', 'html', 'register.html'))
 })
 
-registerRouter.post("/register", (req, res) => {
-    
+registerRouter.post("/register", async(req, res) => {
+    const first_name = req.body.first_name;
+    const last_name = req.body.last_name;
+    const email = req.body.email;
+    const phone_number = req.body.phone_number;
+    const password = req.body.password;
+    if (!first_name || !last_name || !email || !phone_number || !password) {
+        // TODO: Empty Fields
+    }
+    const result = await createNewAccount(first_name, last_name, email, phone_number, password)
+
+    // Jika gagal, berikan peringatan    
+    if(!result) {
+        // TODO: error message
+        console.log("Error")
+    }
+    // Jika berhasil membuat akun, alihkan ke login page
+    else {
+        res.redirect("/login")
+    }
 })
+
+module.exports = registerRouter;
