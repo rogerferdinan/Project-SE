@@ -10,10 +10,9 @@ async function checkUser(email, phone_number, password) {
 }
 
 async function addUser(first_name, last_name, email, phone_number, password) {
-    // const conn = await pool.getConnection()
-    // const rows = await conn.query("INSERT INTO users(first_name, last_name, email, phone_number, password) value(?, ?, ?, ?, ?)", [first_name, last_name, email, phone_number, password])
-    // console.log(rows)
-    // return rows
+    const conn = await promisePool.getConnection()
+    const [rows, fields] = await conn.query("INSERT INTO users(first_name, last_name, email, phone_number, password) value(?, ?, ?, ?, ?)", [first_name, last_name, email, phone_number, password])
+    return rows
 }
 
 module.exports = {
