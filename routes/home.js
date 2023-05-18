@@ -6,6 +6,6 @@ const loginRouter = require("./login")
 
 homeRouter.get("/", checkLogin, (req, res) => {
     // res.
-    res.sendFile(path.join(__dirname, '..', 'src', 'html', 'home.html'))
+    res.sendFile(path.join(__dirname, '..', 'src', 'html', 'index.html'))
 })
 module.exports = homeRouter

@@ -1,4 +1,4 @@
-const hashString = require("../helper/hashString")
+const hashString = require("../helper/hash_string")
 const { addUser } = require("../middleware/user")
 
 async function createNewAccount(first_name, last_name, email, phone_number, password) {
