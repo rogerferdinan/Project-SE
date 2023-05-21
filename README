@@ -1,0 +1,3 @@
+User belum login (Home page) -> redirect ke login
+User sudah login (Login Page) -> redirect ke home
+User sudah login (Register Page) -> redirect ke home

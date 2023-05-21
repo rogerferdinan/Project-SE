@@ -1,9 +1,10 @@
 const express = require("express")
 const createNewAccount = require("../feature/create_new_user")
+const check_login = require("../helper/check_login")
 const registerRouter = express.Router()
 const path = require("path")
 
-registerRouter.get("/register", (req, res) => {
+registerRouter.get("/register", check_login, async (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'src', 'html', 'register.html'))
 })
 

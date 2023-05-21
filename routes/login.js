@@ -20,11 +20,10 @@ loginRouter.post('/login', async(req, res) => {
     if(!username || !password) {
         // TODO: buatkan file html dengan password salah!
         res.sendFile(path.join(__dirname, '..', 'src', 'html', 'login_false.html'))
-        return null
+        return
     }
     
     success_login = await authenticate(username, password)
-    console.log(success_login)
     if(success_login) {
         req.session.loggedin = true
         res.redirect('/')

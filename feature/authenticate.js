@@ -3,10 +3,8 @@ const user = require("../middleware/user")
 
 // TODO : add mysql middleware
 async function authenticate(username, password) {
-    const hash_password = hashString(password)
-    
     // pass email and password -> database
-    const result = await user.checkUser(username, username, hash_password)
+    const result = await user.checkUser(username, username, password)
     return result
 }
 

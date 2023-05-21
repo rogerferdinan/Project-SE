@@ -1,17 +1,28 @@
 const compare_password = require("../helper/compare_password");
-const promisePool = require("./pool_connection");
+const promise_pool = require("./pool_connection");
+const hash_string = require("../helper/hash_string")
 
 async function checkUser(email, phone_number, password) {
-    const conn = await promisePool.getConnection()
+    const conn = await promise_pool.getConnection()
     const [rows, fields] = await conn.query("SELECT * FROM users WHERE email=? or phone_number=?", [email, phone_number])
-    console.log(rows)
-    // if(rows) return compare_password(rows[0].password, password)
-    // return false
+    if(rows) return compare_password(password, rows[0].encrypted_password)
+    return false
 }
 
 async function addUser(first_name, last_name, email, phone_number, password) {
-    const conn = await promisePool.getConnection()
-    const [rows, fields] = await conn.query("INSERT INTO users(first_name, last_name, email, phone_number, password) value(?, ?, ?, ?, ?)", [first_name, last_name, email, phone_number, password])
+    const encrypted_password = hash_string(password)
+
+    const conn = await promise_pool.getConnection()
+    const [rows, fields] = await conn.query(`INSERT INTO users
+    (first_name, last_name, email, phone_number, encrypted_password) 
+    VALUE(?, ?, ?, ?, ?)`
+    , [first_name, last_name, email, phone_number, encrypted_password])
+    return rows
+}
+
+async function deleteUser(user_id) {
+    const conn = await promise_pool.getConnection()
+    conn [rows, fields] = await conn.query("DELETE users WHERE user_id=?", [user_id])
     return rows
 }
 
