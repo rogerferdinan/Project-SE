@@ -4,15 +4,15 @@ const path = require("path")
 const authenticate = require("../feature/authenticate")
 const checkLogin = require("../helper/check_login")
 
-loginRouter.get('/login', checkLogin, (req, res) => {
+loginRouter.get('/login', async(req, res, next) => {
     if(!req.session.loggedin) {
-        res.sendFile(path.join(__dirname, '..', 'src', 'html', 'login.html'))
+        res.sendFile(path.join(__dirname, '..', 'src', 'html', 'login.html')) 
     } else {
-        res.redirect('/')
+       res.redirect("/")
     }
 })
 
-loginRouter.post('/login', async(req, res) => {
+loginRouter.post('/login', async(req, res, next) => {
     const username = req.body.username
     const password = req.body.password
 

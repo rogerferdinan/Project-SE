@@ -4,11 +4,12 @@ const check_login = require("../helper/check_login")
 const registerRouter = express.Router()
 const path = require("path")
 
-registerRouter.get("/register", check_login, async (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'src', 'html', 'register.html'))
+registerRouter.get("/signup", async (req, res) => {
+    if(!req.session.loggedin) res.render("signup")
+    else res.redirect("/")
 })
 
-registerRouter.post("/register", async(req, res) => {
+registerRouter.post("/signup", async(req, res) => {
     const first_name = req.body.first_name;
     const last_name = req.body.last_name;
     const email = req.body.email;

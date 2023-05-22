@@ -3,10 +3,15 @@ const promise_pool = require("./pool_connection");
 const hash_string = require("../helper/hash_string")
 
 async function checkUser(email, phone_number, password) {
-    const conn = await promise_pool.getConnection()
-    const [rows, fields] = await conn.query("SELECT * FROM users WHERE email=? or phone_number=?", [email, phone_number])
-    if(rows) return compare_password(password, rows[0].encrypted_password)
-    return false
+    try {
+        const conn = await promise_pool.getConnection()
+        const [rows, fields] = await conn.query(`SELECT * FROM users 
+        WHERE email=? or phone_number=?`, [email, phone_number])
+        if(rows[0] !== undefined) return compare_password(password, rows[0].encrypted_password)
+    } catch (e) {
+        console.log(e)
+    }
+    // return false
 }
 
 async function addUser(first_name, last_name, email, phone_number, password) {

@@ -11,6 +11,19 @@ const user = require("./middleware/user")
 // user.addUser("dummy", "Dummy", "dummy1@gmail.com", "1234", "pass123").then(res => {
 //     console.log(res)
 // })
-user.checkUser("dummy@gmail.com", "", "dummy").then(res => {
-    console.log(res)
-})
+async function a() {
+    await user.checkUser("dummy@gmail.com", "dummy@gmail.com", "dummy").then(res => {
+        console.log(res)
+    })
+
+    await user.checkUser("dummy@gmail.com", "", "dummy").then(res => {
+        console.log("dummy@gmail.com", "", "dummy")
+        console.log(res)
+    })
+
+    await user.checkUser("dummy@gmail.com", "", "").then(res => {
+        console.log(res)
+    })
+}
+
+a()
