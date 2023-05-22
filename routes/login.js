@@ -4,6 +4,7 @@ const path = require("path")
 const authenticate = require("../feature/authenticate")
 const checkLogin = require("../helper/check_login")
 
+<<<<<<< Updated upstream
 loginRouter.get('/login', async(req, res, next) => {
     if(!req.session.loggedin) {
         res.sendFile(path.join(__dirname, '..', 'src', 'html', 'login.html')) 
@@ -13,6 +14,14 @@ loginRouter.get('/login', async(req, res, next) => {
 })
 
 loginRouter.post('/login', async(req, res, next) => {
+=======
+loginRouter.get('/signin', async(req, res, next) => {
+    if(!req.session.loggedin) res.render("signin")
+    else res.redirect("/")
+})
+
+loginRouter.post('/signin', async(req, res, next) => {
+>>>>>>> Stashed changes
     const username = req.body.username
     const password = req.body.password
 
@@ -22,7 +31,11 @@ loginRouter.post('/login', async(req, res, next) => {
         res.sendFile(path.join(__dirname, '..', 'src', 'html', 'login_false.html'))
         return
     }
+<<<<<<< Updated upstream
     
+=======
+    console.log(username, password)
+>>>>>>> Stashed changes
     success_login = await authenticate(username, password)
     if(success_login) {
         req.session.loggedin = true

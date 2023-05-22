@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 body{
     background-image: linear-gradient(#A2E3DE,#9AE7E2,#8FE2DC,#82E1D9,#79C6C4,#6FB6B7);
     
@@ -188,4 +189,196 @@ body{
 	padding: 12px 0;
 }
     
+=======
+body{
+    background-image: linear-gradient(#A2E3DE,#9AE7E2,#8FE2DC,#82E1D9,#79C6C4,#6FB6B7);
+    
+}
+.header{
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    background-repeat: no-repeat;
+    padding-left: 16%; 
+    padding-bottom: 7%;
+}
+.index{
+    background-image: url('../asset/landing_page.png');
+    height: 100vh;
+}
+.signup{
+    background-image: url('../asset/background_color.png');
+    height: 100vh;
+}
+.signin{
+    background-image: url('../asset/background_color.png');
+    height: 100vh;
+}
+.home{
+    background-image: url('../asset/background_color.png');
+    height: 100vh;
+}
+.profile{
+    background-image: url('../asset/background_color.png');
+    height: 100vh;
+}
+.get-started{
+    font-family: Poppins; 
+    border-radius: 8px; 
+    padding: 3% 15% 3% 15%; 
+    margin-top: 8%; 
+    font-size: x-large; 
+    background-color: #B6F6F3; 
+    border: none;
+    text-decoration: none;
+    color: black;
+}
+.get-started:hover{
+    background-color: #BAFFFC;
+    transition: 0.4s;
+}
+.image-container, .form-container {
+    padding: 20px;
+}
+.image-container {
+    flex: 1;
+}
+.form-container {
+    flex: 1;
+    background-color: #f1f1f1;
+}
+.form-area {
+	padding-top: 7%;
+}
+.row.single-form {
+	box-shadow: 0 2px 20px -5px rgba(0,0,0,0.5);
+}
+.image-overlay {
+    position: absolute;
+    top: 19%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+.left {
+	background: #2B496A;
+	padding: 250px 98px;
+}
+.left h2 {
+	font-family: poppins;
+	color: #fff;
+	font-weight: 700;
+	font-size: 48px;
+}
+.left h2 span {
+	font-weight: 100;
+}
+.single-form{
+    background: #fff;
+}
+.right {
+	padding: 35px 100px;
+	position: relative;
+}
+.right i {
+	position: absolute;
+	font-size: 80px;
+	left: -27px;
+	top: 40%;
+	color: #fff;
+}
+.form-control {
+	border: 2px solid #000;
+}
+.right button {
+	border: none;
+	border-radius: 0;
+	background: #252525;
+	width: 180px;
+	color: #fff;
+	padding: 15px 0;
+	display: inline-block;
+	font-size: 16px;
+	margin-top: 20px;
+	cursor: pointer;
+}
+.right button:hover{
+    background-color: #252525;
+}
+.mt-3 img{
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+.profile-button{
+    background-color: white;
+    font-family: poppins;
+    font-weight: bold;
+    stroke: #000;
+    height: 50px;
+    width: 160px;
+}
+.profile-button:hover{
+    background-color: rgb(222, 222, 222);
+    transition: 0.2s;
+}
+.section-button{
+    background-color: white;
+    font-family: poppins;
+    font-weight: bold;
+    stroke: #000;
+    height: 50px;
+    width: 240px;
+}
+.section-button:hover{
+    background-color: rgb(222, 222, 222);
+    transition: 0.2s;
+}
+.logout-button{
+    background-color: rgb(165, 0, 0);
+    font-family: poppins;
+    font-weight: bold;
+    color: white;
+    height: 50px;
+    width: 200px;
+}
+.logout-button:hover{
+    background-color: rgb(190, 0, 0);
+    transition: 0.2s;
+}
+
+
+/*responsive*/
+
+@media (min-width:768px) and (max-width:991px){
+    .right i {
+	top: -52px;
+	transform: rotate(90deg);
+	left: 50%;
+}
+}
+
+@media (max-width:767px){
+    .left {
+  padding: 90px 15px;
+  text-align: center;
+}
+.left h2 {
+  font-size: 25px;
+}
+.right {
+  padding: 25px;
+}
+.right i {
+  top: -52px;
+  transform: rotate(90deg);
+  left: 46%;
+}
+.right button {
+	width: 150px;
+	padding: 12px 0;
+}
+    
+>>>>>>> Stashed changes
 }
