@@ -27,7 +27,7 @@ registerRouter.post("/signup", async(req, res) => {
     }
     // Jika berhasil membuat akun, alihkan ke login page
     else {
-        res.redirect("/login")
+        res.redirect("/signin")
     }
 })
 

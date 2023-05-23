@@ -19,7 +19,6 @@ loginRouter.post('/signin', async(req, res, next) => {
         res.sendFile(path.join(__dirname, '..', 'src', 'html', 'login_false.html'))
         return
     }
-    console.log(username, password)
     success_login = await authenticate(username, password)
     if(success_login) {
         req.session.loggedin = true

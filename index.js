@@ -5,6 +5,7 @@ const path = require("path")
 const loginRouter = require("./routes/login")
 const homeRouter = require("./routes/home")
 const registerRouter = require("./routes/register")
+const logoutRouter = require("./routes/logout")
 
 // app.use(cookieParser())
 app.use(express.urlencoded({extended: true}))
@@ -26,6 +27,7 @@ app.set("view engine", "ejs")
 app.use(express.static(path.join(__dirname, "/src")))
 app.use(homeRouter)
 app.use(loginRouter)
+app.use(logoutRouter)
 app.use(registerRouter)
 
 app.listen(8000, () => {
