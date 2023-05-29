@@ -22,20 +22,16 @@
         const latitude = position.coords.latitude;
         setupMap([longitude, latitude])
         map.flyTo({center: [longitude, latitude], zoom: 15})
-        var xhr = new XMLHttpRequest()
-        const params = {
-            longtitude : longitude,
-            latitude : latitude
+        const xhr = new XMLHttpRequest()
+        params = {
+            "longtitude" : longitude,
+            "latitude" : latitude
         }
-        
-        xhr.open("POST", "/near_station", false)
-        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.open("get", "near_station", false)
         xhr.send(JSON.stringify(params))
 
-        const station_list = JSON.parse(xhr.responseText).result
-        console.log(station_list)
-        station_list.forEach(function(marker) {
-            new mapboxgl.Marker().color("#880808").setLngLat(center).addTo(map);
+        fetch(xhr).then(res => {
+            console.log(res.json())
         })
     }, ()=> { }, {
         enableHighAccuracy: true
@@ -49,6 +45,11 @@
         const marker = new mapboxgl.Marker().setLngLat(center).addTo(map);
         console.log(marker)
     }
+    station_list = 
+
+    station_list.forEach(function(marker) {
+        setupMap(marker)
+    })
 </script>
 </body>
 </html>
