@@ -4,7 +4,7 @@ function checkLogin(req, res, next) {
         next()
     } else {
         console.log("User have not Login")
-        res.redirect("/login")
+        res.redirect("/signin")
     }
     // if(!req.session.loggedin && req.url != "/login" && req.url != "/register") {
     //     res.redirect("/login")

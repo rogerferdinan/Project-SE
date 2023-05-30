@@ -7,6 +7,7 @@ const homeRouter = require("./routes/home")
 const registerRouter = require("./routes/register")
 const logoutRouter = require("./routes/logout")
 const stationRouter = require("./routes/station")
+const profileRouter = require("./routes/profile")
 
 // app.use(cookieParser())
 app.use(express.urlencoded({extended: true}))
@@ -31,6 +32,7 @@ app.use(loginRouter)
 app.use(logoutRouter)
 app.use(registerRouter)
 app.use(stationRouter)
+app.use(profileRouter)
 
 app.listen(8000, () => {
     console.log("http://localhost:8000")
