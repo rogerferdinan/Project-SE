@@ -15,39 +15,46 @@
 </head>
 <body>
 <div id='map'></div>
+<div class="button-wrapper">
+    <button class="profile-button">
+        <img src="asset/profile.png" class="profile"></img>
+    </button>
+    <button class="charger-button">Normal Charger</button>
+    <button class="charger-button">Fast Charger</button>
+</div>
 <script>    
     mapboxgl.accessToken = 'pk.eyJ1Ijoicm9nZXItZmVyZGluYW4iLCJhIjoiY2xoZWlkNnowMHdtaDNkczc3MHQ0cmF6dCJ9.uptRzyfzpQPPemd1_wYo_Q';
     navigator.geolocation.getCurrentPosition((position)=> {
         const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
         setupMap([longitude, latitude])
-        map.flyTo({center: [longitude, latitude], zoom: 15})
+        map.flyTo({center: [longitude, latitude], zoom: 13})
         var xhr = new XMLHttpRequest()
         const params = {
             longtitude : longitude,
             latitude : latitude
         }
         
-        xhr.open("POST", "/near_station", false)
+        xhr.open("POST", "/near_station", true)
         xhr.setRequestHeader('Content-Type', 'application/json')
         xhr.send(JSON.stringify(params))
-
-        const station_list = JSON.parse(xhr.responseText).result
-        console.log(station_list)
-        station_list.forEach(function(marker) {
-            new mapboxgl.Marker().color("#880808").setLngLat(center).addTo(map);
-        })
+        xhr.onload = (e) => {
+            if(xhr.readyState == 4) {
+                const station_list = JSON.parse(xhr.responseText).result
+                station_list.forEach(function(marker) {
+                    new mapboxgl.Marker({"color": "#880808"}).setLngLat([marker.longtitude, marker.latitude]).addTo(map);
+                })
+            }
+        }
     }, ()=> { }, {
         enableHighAccuracy: true
     })
     const map = new mapboxgl.Map({
             container: 'map', // container ID
-            style: 'mapbox://styles/mapbox/streets-v12', // style URL
-            zoom: 15 // starting zoom
+            style: 'mapbox://styles/mapbox/navigation-night-v1', // style URL
     });
     function setupMap(center) {
         const marker = new mapboxgl.Marker().setLngLat(center).addTo(map);
-        console.log(marker)
     }
 </script>
 </body>

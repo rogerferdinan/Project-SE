@@ -1,8 +1,6 @@
 const express = require("express")
 const loginRouter = express.Router()
-const path = require("path")
 const authenticate = require("../feature/authenticate")
-const checkLogin = require("../helper/check_login")
 
 loginRouter.get('/signin', async(req, res, next) => {
     if(!req.session.loggedin) res.render("signin")
@@ -16,7 +14,7 @@ loginRouter.post('/signin', async(req, res, next) => {
     // Check username dan password tidak kosong
     if(!username || !password) {
         // TODO: buatkan file html dengan password salah!
-        res.sendFile(path.join(__dirname, '..', 'src', 'html', 'login_false.html'))
+        res.render("signin", {message: "Email / Phone Number / Password tidak boleh kosong"})
         return
     }
     success_login = await authenticate(username, password)
@@ -24,7 +22,7 @@ loginRouter.post('/signin', async(req, res, next) => {
         req.session.loggedin = true
         res.redirect('/')
     } else {
-        res.sendFile(path.join(__dirname, '..', 'src', 'html', 'login_false2.html'))
+        res.render("signin", {message: "Email / Phone Number / Password salah"})
     }
 })
 

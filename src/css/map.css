@@ -1,4 +1,33 @@
 #map {
+    position: absolute;
     height: 100vh;
     width: 100vw;
+    z-index: -1;
+}
+.button-wrapper {
+    position: absolute;
+    bottom: 5%;
+    display: flex;
+    gap: 20px;
+    margin-left: 10px;
+}
+
+.profile {
+    width: 40px;
+    height: 40px;
+}
+.profile-button {
+    width: 75px;
+    height: 75px;
+    background-color: #72BBBB;
+    border: 4px solid #0D47A1;
+    padding: 0;
+}
+.charger-button {
+    width: 280px;
+    height: 110px;
+    background: #FF9800;
+    border: 3px solid #000000;
+    box-shadow: -3px 3px 0px #000000;
+    border-radius: 10px;
 }
