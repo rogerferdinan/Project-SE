@@ -12,18 +12,28 @@ loginRouter.post('/signin', async(req, res, next) => {
     const password = req.body.password
 
     // Check username dan password tidak kosong
-    if(!username || !password) {
+    if(!username) {
         // TODO: buatkan file html dengan password salah!
-        res.render("signin", {message: "Email / Phone Number / Password tidak boleh kosong"})
+        res.render("signin", {message: "Email / Phone Number tidak boleh kosong"})
         return
     }
-    success_login = await authenticate(username, password)
-    if(success_login) {
-        req.session.loggedin = true
-        res.redirect('/')
-    } else {
-        res.render("signin", {message: "Email / Phone Number / Password salah"})
+    if (!password) {
+        res.render("signin", {message: "Password tidak boleh kosong"})
+        return
     }
+    try {
+        const success_login = await authenticate(username, password)
+        if(success_login) {
+            req.session.loggedin = true
+            res.redirect('/')
+        } else {
+            res.render("signin", {message: "Email / Phone Number / Password salah"})
+        }
+    } catch (e) {
+        res.render("signin", {message: "Server Sedang Gangguan"})
+    }
+
+    
 })
 
 module.exports = loginRouter

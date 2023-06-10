@@ -25,7 +25,10 @@
                 <div class="col-sm-12 col-lg-7">
                     <div class="right">
                        <h1>Register</h1>
-                        <form>
+                       <% if(locals.message) { %>
+                        <div class="text-danger"><%=message %></div>
+                        <% } %>
+                        <form action="/signup" method="post">
                             <div class="row">
                                 <div class="col">
                                     <div class="mb-3" novalidate>

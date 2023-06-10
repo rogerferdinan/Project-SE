@@ -10,6 +10,8 @@ async function checkUser(email, phone_number, password) {
         WHERE email=? or phone_number=?`
         , [email, phone_number])
         if(rows[0] !== undefined){
+            // console.log(password)
+            // console.log(rows[0].encrypted_password)
             return {
                 success: true,
                 result: compare_password(password, rows[0].encrypted_password)
@@ -17,39 +19,57 @@ async function checkUser(email, phone_number, password) {
         } else {
             return {
                 success: false,
-                result: undefined
+                result: "user not found"
             }
         }
     } catch (err) {
-        if(err.errno == -4039) console.log("Database is closed")
+        if(err.errno == -4039) {
+            return {
+                success: false,
+                result: "database is closed"
+            }
+        }
         return {
             success: false,
-            result: false
+            result: err
         }
     }
 }
 
 async function addUser(first_name, last_name, email, phone_number, password) {
-    const encrypted_password = hash_string(password)
+    const encrypted_password = hash_string(password);
     try {
         const conn = await promise_pool.getConnection()
-        const [rows, fields] = await conn.query(`INSERT INTO users
+        const [rows, fields] = await conn.query(`
+        INSERT INTO users
         (first_name, last_name, email, phone_number, encrypted_password) 
         VALUE(?, ?, ?, ?, ?)`, 
         [first_name, last_name, email, phone_number, encrypted_password])
         return {
             success: true,
-            result: rows
+            result: "new user is successfully created"
         }
     } catch(err) {
-        if(err.errno == -4039) console.log("Database is closed")
+        if(err.errno == -4039) {
+            return {
+                success: false,
+                return: "database is closed"
+            }
+        } else if(err.errno == 1062) {
+            return {
+                success: false,
+                result: "user already exists"
+            }
+        }
+
         return {
             success: false,
-            result: false
+            result: err
         }
     }
 }
 
+// TODO: Delete User need to complete
 async function deleteUser(user_id) {
     const conn = await promise_pool.getConnection()
     conn [rows, fields] = await conn.query("DELETE users WHERE user_id=?", [user_id])

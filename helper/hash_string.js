@@ -3,8 +3,8 @@ const bcrypt = require("bcrypt")
 const secretKey = "secretkey123"
 
 function hash_string(string) {
-    const salt = bcrypt.genSaltSync(10)
-    const hash = bcrypt.hashSync(string, salt)
+    const hash = bcrypt.hashSync(string, 10)
+    console.log(hash)
     return hash
 }
 

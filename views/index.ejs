@@ -5,13 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/map.css">
-    <link href="https://fonts.googleapis.com/css?family=Poppins", rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
     <title>uCharging - Aplikasi Reservasi Charging Mobil</title>
+    
 </head>
 <body>
 <div id='map'></div>
@@ -24,40 +25,6 @@
     <button class="charger-button">Normal Charger</button>
     <button class="charger-button">Fast Charger</button>
 </div>
-<script>    
-    mapboxgl.accessToken = 'pk.eyJ1Ijoicm9nZXItZmVyZGluYW4iLCJhIjoiY2xoZWlkNnowMHdtaDNkczc3MHQ0cmF6dCJ9.uptRzyfzpQPPemd1_wYo_Q';
-    navigator.geolocation.getCurrentPosition((position)=> {
-        const longitude = position.coords.longitude;
-        const latitude = position.coords.latitude;
-        setupMap([longitude, latitude])
-        map.flyTo({center: [longitude, latitude], zoom: 13})
-        var xhr = new XMLHttpRequest()
-        const params = {
-            longtitude : longitude,
-            latitude : latitude
-        }
-        
-        xhr.open("POST", "/near_station", true)
-        xhr.setRequestHeader('Content-Type', 'application/json')
-        xhr.send(JSON.stringify(params))
-        xhr.onload = (e) => {
-            if(xhr.readyState == 4) {
-                const station_list = JSON.parse(xhr.responseText).result
-                station_list.forEach(function(marker) {
-                    new mapboxgl.Marker({"color": "#880808"}).setLngLat([marker.longtitude, marker.latitude]).addTo(map);
-                })
-            }
-        }
-    }, ()=> { }, {
-        enableHighAccuracy: true
-    })
-    const map = new mapboxgl.Map({
-            container: 'map', // container ID
-            style: 'mapbox://styles/mapbox/navigation-night-v1', // style URL
-    });
-    function setupMap(center) {
-        const marker = new mapboxgl.Marker().setLngLat(center).addTo(map);
-    }
-</script>
+<script src="js/map.js"></script>
 </body>
 </html>

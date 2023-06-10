@@ -7,4 +7,6 @@ logoutRouter.get("/signout", checkLogin, async(req, res) => {
     res.redirect("/signin")
 })
 
+// TODO: masih perlu fixing di logout
+
 module.exports = logoutRouter
