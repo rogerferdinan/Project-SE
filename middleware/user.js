@@ -10,8 +10,8 @@ async function checkUser(email, phone_number, password) {
         WHERE email=? or phone_number=?`
         , [email, phone_number])
         if(rows[0] !== undefined){
-            // console.log(password)
-            // console.log(rows[0].encrypted_password)
+            console.log(password)
+            console.log(rows[0].encrypted_password)
             return {
                 success: true,
                 result: compare_password(password, rows[0].encrypted_password)
@@ -37,14 +37,13 @@ async function checkUser(email, phone_number, password) {
 }
 
 async function addUser(first_name, last_name, email, phone_number, password) {
-    const encrypted_password = hash_string(password);
     try {
         const conn = await promise_pool.getConnection()
         const [rows, fields] = await conn.query(`
         INSERT INTO users
         (first_name, last_name, email, phone_number, encrypted_password) 
         VALUE(?, ?, ?, ?, ?)`, 
-        [first_name, last_name, email, phone_number, encrypted_password])
+        [first_name, last_name, email, phone_number, password])
         return {
             success: true,
             result: "new user is successfully created"
