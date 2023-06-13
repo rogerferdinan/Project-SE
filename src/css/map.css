@@ -1,9 +1,3 @@
-#map {
-    position: absolute;
-    height: 100vh;
-    width: 100vw;
-    z-index: -1;
-}
 .button-wrapper {
     position: absolute;
     bottom: 5%;
@@ -30,4 +24,47 @@
     border: 3px solid #000000;
     box-shadow: -3px 3px 0px #000000;
     border-radius: 10px;
+}
+
+#map {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    z-index: -1;
+}
+
+.marker-user {
+    background-image: url('../asset/fast_charger.svg');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.marker-station {
+    background-image: url('../asset/fast_charger.svg');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.marker-normal {
+    background-image: url('../asset/normal_charger.svg');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.marker-fast {
+    background-image: url('../asset/fast_charger.svg');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
 }

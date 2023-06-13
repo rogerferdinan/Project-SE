@@ -89,7 +89,7 @@
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-            <a href="signin.html" style="text-decoration: none; color: white;" class="btn btn-primary">Yes</a>
+            <a href="/signout" style="text-decoration: none; color: white;" class="btn btn-primary">Yes</a>
             </div>
         </div>
         </div>
@@ -161,12 +161,12 @@
             <div class="row d-flex flex-column justify-content-center">
                 <div class="col text-center">
                     <div class="d-flex align-items-center justify-content-left" style="margin-top: 3%;">
-                        <a href="home.html">
-                            <img src="assets/Back Button.png" alt="Back Button" class="img-fluid" style="width: 68px; height: 50px;">
+                        <a href="/">
+                            <img src="asset/Back Button.png" alt="Back Button" class="img-fluid" style="width: 68px; height: 50px;">
                         </a>
                         <h3 class="ms-3">Hi, Jason</h3>
                     </div>
-                    <img src="assets/ProfilePicture.png" alt="Profile Picture" class="img-fluid my-3" style="width: 120px; height: 120px;">
+                    <img src="asset/ProfilePicture.png" alt="Profile Picture" class="img-fluid my-3" style="width: 120px; height: 120px;">
                     <div>
                         <label for="profile-picture" class="profile-button" style="border: 2px solid #000;">
                             <p style="margin-top: 8%;">Edit Profile Picture</p>
@@ -180,19 +180,19 @@
                         <h4 style="font-family: poppins; font-weight: bolder;">Account</h4>
                         <div class="col mt-3">
                             <button type="submit" class="section-button" style="border-radius: 8px;">
-                                <img src="assets/AddFriends.png" alt="Invite Friends">
+                                <img src="asset/AddFriends.png" alt="Invite Friends">
                                 Invite Friends
                             </button>
                         </div>
                         <div class="col mt-3">
                             <button type="button" class="section-button" style="border-radius: 8px;" id="notificationButton">
-                                <img src="assets/Notification.png" alt="Notifications">
+                                <img src="asset/Notification.png" alt="Notifications">
                                 Notifications
                             </button>
                         </div>
                         <div class="col mt-3">
                             <button type="button" class="section-button" style="border-radius: 8px;" id="changePasswordButton">
-                                <img src="assets/ChangePassword.png" alt="Change Password">
+                                <img src="asset/ChangePassword.png" alt="Change Password">
                                 Change Password
                             </button>
                         </div>
@@ -201,19 +201,19 @@
                     <h4 style="font-family: poppins; font-weight: bolder;">General</h4>
                         <div class="col mt-3">
                             <button type="button" class="section-button" style="border-radius: 8px;" id="PrivacynPolicyButton">
-                                <img src="assets/PrivacyNPolicy.png" alt="Privacy Policy">
+                                <img src="asset/PrivacyNPolicy.png" alt="Privacy Policy">
                                 Privacy Policy
                             </button>
                         </div>
                         <div class="col mt-3">
                             <button type="button" class="section-button" style="border-radius: 8px;" id="tncButton">
-                                <img src="assets/TnC_Icon.png" alt="Terms Of Service">
+                                <img src="asset/TnC_Icon.png" alt="Terms Of Service">
                                 Terms Of Service
                             </button>
                         </div>
                         <div class="col mt-3">
                             <button type="button" class="section-button" style="border-radius: 8px;" id="ratingButton">
-                                <img src="assets/rating.png" alt="Rate Our App">
+                                <img src="asset/rating.png" alt="Rate Our App">
                                 Rate Our App
                             </button>
                         </div>
@@ -226,6 +226,7 @@
     </div>
     <script>
         $('#tncButton').on('click', function() {
+            console.log("ALog")
             let text = document.getElementById("modalTitle");
             text.innerHTML = "Terms of Service";
             $('#termsOfService').modal('show');

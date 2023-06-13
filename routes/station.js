@@ -7,7 +7,6 @@ stationRouter.post("/near_station", async (req, res) => {
     const longitude = req.body.longtitude
     const latitude = req.body.latitude
 
-    console.log(req.body)
     if(!longitude || !latitude) {
         res.status(400).send({
             status: "Longtitude or Latitude cannot be empty"

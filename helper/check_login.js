@@ -6,14 +6,6 @@ function checkLogin(req, res, next) {
         console.log("User have not Login")
         res.redirect("/signin")
     }
-    // if(!req.session.loggedin && req.url != "/login" && req.url != "/register") {
-    //     res.redirect("/login")
-    //     return
-    // }
-    // if(req.session.loggedin=true && req.url == "/register") {
-    //     res.redirect("/")
-    //     return
-    // }
 }
 
 module.exports = checkLogin

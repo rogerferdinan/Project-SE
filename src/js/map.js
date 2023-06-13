@@ -1,63 +1,78 @@
 mapboxgl.accessToken = 'pk.eyJ1Ijoicm9nZXItZmVyZGluYW4iLCJhIjoiY2xoZWlkNnowMHdtaDNkczc3MHQ0cmF6dCJ9.uptRzyfzpQPPemd1_wYo_Q';
 
-function setupMap(center) {
-    const marker = new mapboxgl.Marker().setLngLat(center).addTo(map);
+function setupMap(coordinate, className) {
+    const el = document.createElement('div');
+    el.className = className;
+
+    const popup = new mapboxgl.Popup({offset: 25})
+        .setText("Lorem Ipsum");
+    const marker = new mapboxgl.Marker(el)
+        .setLngLat(coordinate)
+        .addTo(map);
+    return marker;
 }
 
 const map = new mapboxgl.Map({
     container: 'map', // container ID
-    style: 'mapbox://styles/mapbox/navigation-night-v1', // style URL
+    style: 'mapbox://styles/mapbox/navigation-day-v1', // style URL
 });
 
-var features = []
+var station_marker = []
+var longitude = 0;
+var latitude = 0;
 // Get Current Location
 navigator.geolocation.getCurrentPosition((position)=> {
-    const longitude = position.coords.longitude;
-    const latitude = position.coords.latitude;
-    setupMap([longitude, latitude])
-    map.flyTo({center: [longitude, latitude], zoom: 13})
+    longtitude = position.coords.longitude;
+    latitude = position.coords.latitude;
+    setupMap([longitude, latitude], "marker-user")
+    map.flyTo({center: [longtitude, latitude], zoom: 13})
     const params = {
-        longtitude : longitude,
+        longtitude : longtitude,
         latitude : latitude
     }
     var resp = makeRequest("POST", "/near_station", params)
     resp.then((r) => {
         var result = JSON.parse(r)["result"]
-        const features = []
         result.forEach((T) => {
-            features.push({
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [T.longitude, T.latitude]
-                },
-                "properties": {
-                    "name": T.station_name
-                }
-            })
-        })
-        map.addSource("stations", {
-            type: "geojson",
-            data: {
-                "type": "FeatureCollection",
-                "features": features
-            }
-        })
-        map.addLayer({
-            "id": "stations",
-            "type": "marker",
-            "source": "stations"
-        })
-        map.getSource("stations").setData({
-            "type": "FeatureCollection",
-            "features": features
-        })
-        map.on("load", "stations", (e) => {
-            console.log(e)
+            console.log(T)
+            const marker = setupMap([T.longtitude, T.latitude], "marker-station")
+            station_marker.push(marker)
         })
     })
     
 }, () => {}, {enableHighAccuracy: true})
+
+function getNormalCharger() {
+    deleteAllMarker()
+    const params = {
+        longtitude : longitude,
+        latitude : latitude
+    }
+    var resp = makeRequest("POST", "/normal_station", params)
+    resp.then((r) => {
+        var result = JSON.parse(r)["result"]
+        result.forEach((T) => {
+            const marker = setupMap([T.longtitude, T.latitude], "marker-normal")
+            station_marker.push(marker);
+        })
+    })
+}
+
+function getFastCharger() {
+    deleteAllMarker()
+    const params = {
+        longtitude : longitude,
+        latitude : latitude
+    }
+    var resp = makeRequest("POST", "/fast_station", params)
+    resp.then((r) => {
+        var result = JSON.parse(r)["result"]
+        result.forEach((T) => {
+            const marker = setupMap([T.longtitude, T.latitude], "marker-normal");
+            station_marker.push(marker)
+        })
+    })
+}
 
 // Promised Make Request
 function makeRequest(method, url, params) {
@@ -83,4 +98,12 @@ function makeRequest(method, url, params) {
         };
         xhr.send(JSON.stringify(params));
     });
+}
+
+function deleteAllMarker() {
+    if(station_marker !== null) {
+        for (var i = station_marker.length - 1; i >= 0; i--) {
+            station_marker[i].remove();
+        }
+    } 
 }

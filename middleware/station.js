@@ -3,7 +3,8 @@ const poolPromise = require("../middleware/pool_connection")
 async function get_station(longtitude, latitude) {
     try {
         const conn = await poolPromise.getConnection()
-        const [rows, fields] = await conn.query(`SELECT 
+        const [rows, fields] = await conn.query(`
+        SELECT 
             station_name, 
             longtitude, 
             latitude
@@ -43,7 +44,8 @@ async function get_normal_station(longtitude, latitude) {
             ON s.station_id = sp.station_id 
         JOIN charging_types ct 
             ON sp.type_id = ct.type_id 
-        WHERE ct.type_name = "Normal"`, [longtitude, latitude])
+        WHERE ct.type_name = "Normal"
+        AND distance <= 10000`, [longtitude, latitude])
         return {
             success: true,
             result: rows
@@ -72,7 +74,8 @@ async function get_fast_station(longtitude, latitude) {
             ON s.station_id = sp.station_id 
         JOIN charging_types ct 
             ON sp.type_id = ct.type_id 
-        WHERE ct.type_name = "Fast"`, [longtitude, latitude])
+        WHERE ct.type_name = "Fast"
+        AND distance <= 10000`, [longtitude, latitude])
         return {
             success: true,
             result: rows

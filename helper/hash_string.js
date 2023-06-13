@@ -4,7 +4,6 @@ const secretKey = "secretkey123"
 
 function hash_string(string) {
     const hash = bcrypt.hashSync(string, 10)
-    console.log(hash)
     return hash
 }
 
