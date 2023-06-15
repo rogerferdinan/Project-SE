@@ -103,18 +103,20 @@
             <h5 class="modal-title" id="changePasswordModal">Change Password</h5>
             </div>
             <div class="modal-body">
-                <div class="col">
-                    <div class="mb-3">
-                        <label for="OldPassword" class="form-label">Old Password</label>
-                        <input type="text" class="form-control" id="OldPassword" required>
+                <form action="/change_password" method="post">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="OldPassword" class="form-label">Old Password</label>
+                            <input type="text" class="form-control" id="OldPassword" required>
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="mb-3">
-                        <label for="NewPassword" class="form-label">New Password</label>
-                        <input type="text" class="form-control" id="NewPassword" required>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="NewPassword" class="form-label">New Password</label>
+                            <input type="text" class="form-control" id="NewPassword" required>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

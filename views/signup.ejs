@@ -9,6 +9,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>SignUpPage</title>
 </head>
@@ -28,18 +29,24 @@
                        <% if(locals.message) { %>
                         <div class="text-danger"><%=message %></div>
                         <% } %>
-                        <form action="/signup" method="post">
+                        <form action="/signup" method="post" class="needs-validation" novalidate id="signup-form">
                             <div class="row">
                                 <div class="col">
-                                    <div class="mb-3" novalidate>
+                                    <div class="mb-3">
                                         <label for="FirstName" class="form-label">First Name</label>
                                         <input type="text" class="form-control" id="FirstName" name="first_name" required>
+                                        <div class="invalid-feedback">
+                                            Masukkan nama depan anda.
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="LastName" class="form-label">Last Name</label>
                                         <input type="text" class="form-control" id="LastName" name="last_name" required>
+                                        <div class="invalid-feedback">
+                                            Masukkan nama belakang anda.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -48,12 +55,18 @@
                                     <div class="mb-3">
                                         <label for="PhoneNumber" class="form-label">Phone Number</label>
                                         <input type="text" class="form-control" id="PhoneNumber" name="phone_number" required>
+                                        <div class="invalid-feedback">
+                                            Masukkan nomor telephone anda.
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="Email" class="form-label">Email</label>
                                         <input type="text" class="form-control" id="Email" name="email" required>
+                                        <div class="invalid-feedback">
+                                            Masukkan Email anda.
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -61,17 +74,41 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="Password" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="Password" name="password" required>
+                                        <div class="input-group mb-3">
+                                            <input type="password" class="form-control" id="Password" name="password" required>
+                                            <div class="input-group-append">
+                                                <span type="button" class="input-group-text" role="button" style="border-top-right-radius: 6px; border-bottom-right-radius: 6px;" id="togglePassword" onclick="togglePasswordVisibility('Password')">
+                                                    <i class="far fa-eye"></i>
+                                                </span>
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Masukkan password anda.
+                                            </div>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="ConfirmPassword" class="form-label">Confirm Password</label>
-                                        <input type="password" class="form-control" id="ConfirmPassword" required>
+                                        <div class="input-group mb-3">
+                                            <input type="password" class="form-control" id="ConfirmPassword" required>
+                                            <div class="input-group-append">
+                                                <span type="button" class="input-group-text" role="button" id="toggleConfirmPassword" onclick="toggleConfirmPasswordVisibility('ConfirmPassword')">
+                                                    <i class="far fa-eye"></i>
+                                                </span>
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Masukkan ulang password anda.
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                          <button type="submit" class="btn btn-primary" style="border-radius: 8px;">Register</button>
+                            <button type="submit" id="signup" class="btn btn-primary" style="border-radius: 8px;">
+                                <span id="button-animation" style="font-size: large;" role="status" aria-hidden="true"></span>
+                                Register
+                            </button>
                         </form>
                         <span style="margin-top: 15px; font-size: 12px;">Already have an account? <a href="/signin">Sign In</a></span>
                     </div>
@@ -79,5 +116,68 @@
             </div>
         </div>
     </div>
+    <script>
+        function togglePasswordVisibility(buttonId){
+            var x= document.getElementById(buttonId);
+            var togglePassword = document.querySelector("#togglePassword");
+            if (x.type === "password") {
+                x.type = "text";
+                togglePassword.innerHTML = '<i class="far fa-eye-slash"></i>';
+            } else {
+                x.type = "password";
+                togglePassword.innerHTML = '<i class="far fa-eye"></i>';
+            }
+        }
+        
+        function toggleConfirmPasswordVisibility(buttonId){
+            var x= document.getElementById(buttonId);
+            var toggleConfirmPassword = document.querySelector("#toggleConfirmPassword");
+            if (x.type === "password") {
+                x.type = "text";
+                toggleConfirmPassword.innerHTML = '<i class="far fa-eye-slash"></i>';
+            } else {
+                x.type = "password";
+                toggleConfirmPassword.innerHTML = '<i class="far fa-eye"></i>';
+            }
+        }
+
+        document.getElementById('signup').addEventListener('click', function() {
+            var form = document.getElementById('signup-form');
+            var inputs = form.getElementsByTagName('input');
+            var isInputEmpty = false;
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].value.trim() === '') {
+                    isInputEmpty= true;
+                    break;
+                }
+            }
+            if(form == null || isInputEmpty){
+                return;
+            }
+            var button = document.getElementById('button-animation');
+            button.classList.add('spinner-border', 'spinner-border-sm');
+            button.setAttribute('disabled', 'true');
+        });
+
+        const form = document.querySelector("form");
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+        });
+        (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+            });
+        }, false);
+        })();
+    </script>
 </body>
 </html>
