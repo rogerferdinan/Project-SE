@@ -33,12 +33,17 @@ loginRouter.post('/signin', async(req, res, next) => {
             req.session.loggedin = true
             res.redirect('/')
         } else {
-            res.render("signin", {message: "Email / Phone Number / Password salah"})
+            res.render("signin", {message: "Kredensial salah, tolong periksa ulang!"})
         }
     } catch (e) {
         console.log(e)
         res.render("signin", {message: "Server Sedang Gangguan"})
     }    
+})
+
+loginRouter.get('/change-password', async(req, res, next) => {
+    if(!req.session.loggedin) res.render("change-password")
+    else res.redirect("/")
 })
 
 module.exports = loginRouter
