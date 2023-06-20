@@ -120,6 +120,47 @@ body{
     background-color: rgb(222, 222, 222);
     transition: 0.2s;
 }
+.location-box {
+    width: 350px;
+    height: 185px;
+    background: white;
+    border: 3px solid #000000;
+    box-shadow: -3px 3px 0px #000000;
+    border-radius: 10px;
+    font-family: "Poppins";
+}
+
+.button-detail{
+    width: 120px;
+    height: 40px;
+    background: #266cd5;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    font-family: "Poppins";
+    color: white;
+}
+
+.distance {
+    background: #FFB300;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    font-family: "Poppins";
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.receipt {
+    border-radius: 10px; 
+    background-color: #2B496A; 
+    width: 500px; 
+    height: 450px; 
+    color: white;
+    font-family: Poppins;
+}
+
 .logout-button{
     background-color: rgb(165, 0, 0);
     font-family: poppins;

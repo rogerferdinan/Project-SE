@@ -34,7 +34,7 @@
 }
 
 .marker-user {
-    background-image: url('../asset/login1.svg');
+    background-image: url('../asset/fast_charger.svg');
     background-size: cover;
     width: 50px;
     height: 50px;
@@ -42,8 +42,42 @@
     cursor: pointer;
 }
 
+.location-box {
+    width: 396px;
+    height: 275px;
+    background: white;
+    border: 3px solid #000000;
+    box-shadow: -3px 3px 0px #000000;
+    border-radius: 10px;
+    font-family: "Poppins";
+}
+
+.button-detail{
+    width: 120px;
+    height: 40px;
+    background: #266cd5;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    font-family: "Poppins";
+    color: white;
+}
+
+.distance {
+    width: 90px;
+    height: 40px;
+    background: #FFB300;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    font-family: "Poppins";
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 .marker-station {
-    background-image: url('../asset/normal_charger.svg');
+    background-image: url('../asset/fast_charger.svg');
     background-size: cover;
     width: 50px;
     height: 50px;
