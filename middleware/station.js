@@ -1,8 +1,8 @@
-const poolPromise = require("../middleware/pool_connection")
+const { queryWithExceptionHandler, promisePool : promise_pool } = require("./pool_connection");
 
 async function get_station(longtitude, latitude) {
-    try {
-        const conn = await poolPromise.getConnection()
+    return await queryWithExceptionHandler(async() => {
+        const conn = await promise_pool.getConnection()
         const [rows, fields] = await conn.query(`
         SELECT 
             station_name, 
@@ -20,19 +20,12 @@ async function get_station(longtitude, latitude) {
             success: true,
             result: rows
         }
-    } catch (err) {
-        if(err.errno == -4039) console.log("Database is closed")
-        console.log(err)
-        return {
-            success: false,
-            result: false
-        }
-    }
+    })
 }
 
 async function get_normal_station(longtitude, latitude) {
-    try {
-        const conn = await poolPromise.getConnection()
+    return await queryWithExceptionHandler(async() => {
+        const conn = await promise_pool.getConnection()
         const [rows, fields] = await conn.query(`SELECT * FROM (SELECT 
                 station_id, 
                 longtitude, 
@@ -50,19 +43,12 @@ async function get_normal_station(longtitude, latitude) {
             success: true,
             result: rows
         }
-    } catch (err) {
-        if(err.errno == -4039) console.log("Database is closed")
-        console.log(err)
-        return {
-            success: false,
-            result: false
-        }
-    }
+    })
 }
 
 async function get_fast_station(longtitude, latitude) {
-    try {
-        const conn = await poolPromise.getConnection()
+    return await queryWithExceptionHandler(async() => {
+        const conn = await promise_pool.getConnection()
         const [rows, fields] = await conn.query(`SELECT * FROM (SELECT 
                 station_id, 
                 longtitude, 
@@ -80,14 +66,7 @@ async function get_fast_station(longtitude, latitude) {
             success: true,
             result: rows
         }
-    } catch (err) {
-        if(err.errno == -4039) console.log("Database is closed")
-        console.log(err)
-        return {
-            success: false,
-            result: false
-        }
-    }
+    })
 }
 
 module.exports = {

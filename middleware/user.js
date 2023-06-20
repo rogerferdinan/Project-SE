@@ -1,9 +1,9 @@
 const compare_password = require("../helper/compare_password");
-const promise_pool = require("./pool_connection");
-const hash_string = require("../helper/hash_string")
+const hash_string = require("../helper/hash_string");
+const { queryWithExceptionHandler, promisePool : promise_pool } = require("./pool_connection");
 
 async function checkUser(email, phone_number, password) {
-    try {
+    return await queryWithExceptionHandler(async () => {
         const conn = await promise_pool.getConnection()
         const [rows, fields] = await conn.query(`
         SELECT * FROM users 
@@ -22,23 +22,12 @@ async function checkUser(email, phone_number, password) {
                 result: "user not found"
             }
         }
-    } catch (err) {
-        if(err.errno == -4039) {
-            return {
-                success: false,
-                result: "database is closed"
-            }
-        }
-        return {
-            success: false,
-            result: err
-        }
-    }
+    })
 }
 
 async function addUser(first_name, last_name, email, phone_number, password) {
-    const hash_password = hash_string(password)
-    try {
+    return await queryWithExceptionHandler(async () => {
+        const hash_password = hash_string(password);
         const conn = await promise_pool.getConnection();
         await conn.beginTransaction();
         const [user_id, ] = await conn.query(`
@@ -58,24 +47,7 @@ async function addUser(first_name, last_name, email, phone_number, password) {
             success: true,
             result: "new user is successfully created"
         }
-    } catch(err) {
-        if(err.errno == -4039) {
-            return {
-                success: false,
-                return: "database is closed"
-            }
-        } else if(err.errno == 1062) {
-            return {
-                success: false,
-                result: "user already exists"
-            }
-        }
-
-        return {
-            success: false,
-            result: err
-        }
-    }
+    })
 }
 
 // TODO: Delete User need to complete

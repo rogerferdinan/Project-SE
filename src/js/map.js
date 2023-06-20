@@ -1,11 +1,17 @@
 mapboxgl.accessToken = 'pk.eyJ1Ijoicm9nZXItZmVyZGluYW4iLCJhIjoiY2xoZWlkNnowMHdtaDNkczc3MHQ0cmF6dCJ9.uptRzyfzpQPPemd1_wYo_Q';
 
+function setupPopup(station_name, rating, ) {
+
+}
+
 function setupMap(coordinate, className) {
     const el = document.createElement('div');
     el.className = className;
 
+    setupPopup()
     const popup = new mapboxgl.Popup({offset: 25})
-        .setText("Lorem Ipsum");
+        .setText("Lorem Ipsum")
+        .setButton("Button");
     const marker = new mapboxgl.Marker(el)
         .setLngLat(coordinate)
         .setPopup(popup)

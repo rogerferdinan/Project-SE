@@ -2,28 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/map.css">
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
+    <meta http-equiv="X-UA-Compatible" 
+        content="IE=edge">
+    <meta name="viewport" 
+        content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" 
+        href="css/map.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Poppins">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
+    </script>
+    <link rel="stylesheet" 
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'>
+    </script>
+    <link rel="stylesheet"
+    href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css">
     <title>uCharging - Aplikasi Reservasi Charging Mobil</title>
-    
 </head>
 <body>
 <div id='map'></div>
 <div class="button-wrapper">
-    <a href="/profile">
-        <button class="profile-button" action="">
-            <img src="asset/profile.png" class="profile"></img>
-        </button>
-    </a>
-    <button class="charger-button" onclick="getNormalCharger()">Normal Charger</button>
-    <button class="charger-button" onclick="getFastCharger()">Fast Charger</button>
+    <button class="profile-button" action="location.href='/profile'">
+        <img src="asset/profile.png" 
+            class="profile">
+        </img>
+    </button>
+    <button class="charger-button" 
+        onclick="getNormalCharger()">
+        Normal Charger
+    </button>
+    <button class="charger-button" 
+        onclick="getFastCharger()">
+        Fast Charger
+    </button>
 </div>
 <script src="js/map.js"></script>
 </body>

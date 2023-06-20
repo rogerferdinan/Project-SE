@@ -1,7 +1,7 @@
 const mysql = require("mysql2")
 
 const pool = mysql.createPool({
-        host: "localhost",
+        host: "54.175.61.68",
         port: 3306,
         user: "ucharging",
         password: "ucharging",
@@ -9,6 +9,31 @@ const pool = mysql.createPool({
         connectTimeout:30000
 })
 
-const promisePool = pool.promise()
+const promisePool = pool.promise();
 
-module.exports = promisePool;
+async function queryWithExceptionHandler(callback) {
+        try {
+                return callback();
+        } catch(err) {
+                if(err.errno == -4039) {
+                        return {
+                                success: false,
+                                return: "database is closed"
+                        }
+                } else if(err.errno == 1062) {
+                        return {
+                                success: false,
+                                result: "user already exists"
+                        }
+                }
+                return {
+                        success: false,
+                        result: err
+                }
+        }
+}
+
+module.exports = {
+        promisePool,
+        queryWithExceptionHandler
+};
