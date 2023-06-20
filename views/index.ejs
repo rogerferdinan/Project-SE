@@ -2,42 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" 
-        content="IE=edge">
-    <meta name="viewport" 
-        content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" 
-        href="css/map.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Poppins">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
-    </script>
-    <link rel="stylesheet" 
-        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'>
-    </script>
-    <link rel="stylesheet"
-    href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/map.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
     <title>uCharging - Aplikasi Reservasi Charging Mobil</title>
+    
 </head>
 <body>
 <div id='map'></div>
 <div class="button-wrapper">
-    <button class="profile-button" action="location.href='/profile'">
-        <img src="asset/profile.png" 
-            class="profile">
-        </img>
-    </button>
-    <button class="charger-button" 
-        onclick="getNormalCharger()">
-        Normal Charger
-    </button>
-    <button class="charger-button" 
-        onclick="getFastCharger()">
-        Fast Charger
-    </button>
+    <a href="/profile">
+        <button class="profile-button" action="">
+            <img src="asset/profile.png" class="profile"></img>
+        </button>
+    </a>
+    <button class="charger-button" onclick="getNormalCharger()">Normal Charger</button>
+    <button class="charger-button" onclick="getFastCharger()">Fast Charger</button>
+    <div class="location-box">
+            <div style="margin-top: 20px; margin-left: 15px;">
+                <div class="row" style="margin-left: 1px;">
+                    <div>
+                        <h5>Electric Vehicle<br>
+                            Charging Station
+                        </h5>
+                        <h6>Anggrek Garuda Street No. 27</h6>
+                    </div>
+                    <div class="distance" style="margin-top: 8%; margin-left: 6%;">
+                        <img src="asset/location.png" style="width: 16px; height: 20px; margin-right: 8px;">
+                        <h7>2 Km</h7>
+                    </div>
+                </div>
+                <div style="margin-bottom: 2%; margin-top: 2%;">
+                    <img src="asset/charging-power.png" style="width: 25px; height: 25px;">
+                    <h7>7 kW</h7>
+                </div>
+                <div style="margin-bottom: 2%; margin-top: 2%;">
+                    <img src="asset/available.png" style="width: 25px; height: 25px;">
+                    <h7>1 of 3 available</h7>
+                </div>
+                <div style="margin-bottom: 2%; margin-top: 2%;">
+                    <img src="asset/distance.png" style="width: 25px; height: 25px;">
+                    <h7>7 min</h7>
+                </div>
+                <button type="button" class="button-detail" role="button">
+                    <a href="/station-detail" style="text-decoration: none; color: white;">
+                        Detail
+                    </a>
+                </button>
+            </div>
+    </div>
 </div>
 <script src="js/map.js"></script>
 </body>
