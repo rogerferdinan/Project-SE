@@ -8,6 +8,7 @@ function setupMap(coordinate, className) {
         .setText("Lorem Ipsum");
     const marker = new mapboxgl.Marker(el)
         .setLngLat(coordinate)
+        .setPopup(popup)
         .addTo(map);
     return marker;
 }
@@ -22,10 +23,12 @@ var longitude = 0;
 var latitude = 0;
 // Get Current Location
 navigator.geolocation.getCurrentPosition((position)=> {
-    longtitude = position.coords.longitude;
-    latitude = position.coords.latitude;
-    setupMap([longitude, latitude], "marker-user")
-    map.flyTo({center: [longtitude, latitude], zoom: 13})
+    // longtitude = position.coords.longitude;
+    longtitude = 106.77;
+    latitude = -6.2017;
+    // latitude = position.coords.latitude;
+    setupMap([longitude, latitude], "marker-user");
+    map.flyTo({center: [longtitude, latitude], zoom: 13});
     const params = {
         longtitude : longtitude,
         latitude : latitude
@@ -45,7 +48,7 @@ navigator.geolocation.getCurrentPosition((position)=> {
 function getNormalCharger() {
     deleteAllMarker()
     const params = {
-        longtitude : longitude,
+        longtitude : longtitude,
         latitude : latitude
     }
     var resp = makeRequest("POST", "/normal_station", params)
@@ -61,14 +64,14 @@ function getNormalCharger() {
 function getFastCharger() {
     deleteAllMarker()
     const params = {
-        longtitude : longitude,
+        longtitude : longtitude,
         latitude : latitude
     }
     var resp = makeRequest("POST", "/fast_station", params)
     resp.then((r) => {
         var result = JSON.parse(r)["result"]
         result.forEach((T) => {
-            const marker = setupMap([T.longtitude, T.latitude], "marker-normal");
+            const marker = setupMap([T.longtitude, T.latitude], "marker-fast");
             station_marker.push(marker)
         })
     })
