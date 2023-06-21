@@ -1,17 +1,67 @@
 mapboxgl.accessToken = 'pk.eyJ1Ijoicm9nZXItZmVyZGluYW4iLCJhIjoiY2xoZWlkNnowMHdtaDNkczc3MHQ0cmF6dCJ9.uptRzyfzpQPPemd1_wYo_Q';
 
-function setupPopup(station_name, rating, ) {
+function set_popup(name, address, distance, power) {
+    const popup = document.createElement("div");
+    popup.className = "location-box";
+    
+    const div_wrapper = document.createElement("div");
+    div_wrapper.className = "popup-wrapper";
+    const div1 = document.createElement("div");
+    const h5 = document.createElement("h5");
+    h5.innerHTML = name;
+    const h6 = document.createElement("h6");
+    h6.innerHTML = address;
+    div1.appendChild(h5);
+    div1.appendChild(h6);
 
+    const div2 = document.createElement("div");
+    div2.classList.add("distance");
+    div2.classList.add("popup-detail");
+    var img = document.createElement("img");
+    img.src = "asset/location.png";
+    var h7 = document.createElement("h7");
+    h7.innerHTML = distance + " km";
+    div2.appendChild(img);
+    div2.appendChild(h7);
+
+    div_wrapper.appendChild(div1);
+    div_wrapper.appendChild(div2);
+
+    const div3 = document.createElement("div");
+    div3.classList.add("popup-detail");
+    var img = document.createElement("img");
+    img.src = "asset/charging-power.png";
+    var h7 = document.createElement("h7");
+    h7.innerHTML = power + " kWh";
+    div3.appendChild(img);
+    div3.appendChild(h7);
+
+    const btn = document.createElement("div");
+    btn.className = "button-detail";
+    btn.innerHTML = "Detail";
+    btn.setAttribute("onClick", "location.href='/station-detail'");
+
+    popup.appendChild(div_wrapper);
+    popup.appendChild(div3);
+    popup.appendChild(btn);
+    
+    return popup;
 }
 
 function setupMap(coordinate, className) {
     const el = document.createElement('div');
     el.className = className;
 
-    setupPopup()
-    const popup = new mapboxgl.Popup({offset: 25})
-        .setText("Lorem Ipsum")
-        .setButton("Button");
+    const popup = new mapboxgl.Popup({
+        offset: 25,
+        maxWidth: "auto"
+    }).setDOMContent(
+        set_popup(
+            "Electric Vehicle Charging Station",
+            "Aggrek Garuda Street No. 27",
+            2.0,
+            7
+        ));
     const marker = new mapboxgl.Marker(el)
         .setLngLat(coordinate)
         .setPopup(popup)
@@ -49,7 +99,9 @@ navigator.geolocation.getCurrentPosition((position)=> {
         })
     })
     
-}, () => {}, {enableHighAccuracy: true})
+}, () => {}, {
+    enableHighAccuracy: true
+})
 
 function getNormalCharger() {
     deleteAllMarker()
