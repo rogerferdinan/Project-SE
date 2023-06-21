@@ -39,6 +39,7 @@ function set_popup(name, address, distance, power) {
     const btn = document.createElement("div");
     btn.className = "button-detail";
     btn.innerHTML = "Detail";
+    btn.setAttribute("type", "button");
     btn.setAttribute("onClick", "location.href='/station-detail'");
 
     popup.appendChild(div_wrapper);

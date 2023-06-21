@@ -46,6 +46,10 @@ stationRouter.post("/fast_station", async(req, res) => {
     result = await get_fast_station(longitude, latitude)
     res.send(result)
 })
+
+stationRouter.get("/station-detail", async (req, res) => {
+    res.render("station-detail");
+})
 // GET all List Station
 // Get Station Coordinate
 
