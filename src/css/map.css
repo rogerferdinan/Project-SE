@@ -18,12 +18,18 @@
     padding: 0;
 }
 .charger-button {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     width: 280px;
     height: 110px;
     background: #FF9800;
     border: 3px solid #000000;
     box-shadow: -3px 3px 0px #000000;
     border-radius: 10px;
+}
+.charger-button img {
+    height: 80%;
 }
 
 #map {
@@ -58,10 +64,16 @@
 
 .popup-wrapper {
     display: flex;
+    justify-content: space-between;
 }
 
 .popup-detail {
     height: 40px;
+}
+.charging-power {
+    display: flex;
+    justify-content: space-between;
+    width: 90px;
 }
 .popup-detail img {
     height: 60%;
@@ -82,7 +94,8 @@
 
 .distance {
     display: flex;
-    align-content: space-between;
+    justify-content: space-around;
+    align-items: center;
     width: 90px;
     height: 40px;
     background: #FFB300;
@@ -90,14 +103,11 @@
     border-radius: 10px;
     font-family: "Poppins";
     color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     text-align: center;
 }
 
 .marker-station {
-    background-image: url('../asset/fast_charger.svg');
+    background-image: url('../asset/marker_default.png');
     background-size: cover;
     width: 50px;
     height: 50px;
@@ -106,7 +116,7 @@
 }
 
 .marker-normal {
-    background-image: url('../asset/normal_charger.svg');
+    background-image: url('../asset/marker_normal.png');
     background-size: cover;
     width: 50px;
     height: 50px;
@@ -115,7 +125,16 @@
 }
 
 .marker-fast {
-    background-image: url('../asset/fast_charger.svg');
+    background-image: url('../asset/marker_fast.png');
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.marker-user {
+    background-image: url('../asset/marker_user.png');
     background-size: cover;
     width: 50px;
     height: 50px;

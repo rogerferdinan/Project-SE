@@ -7,6 +7,7 @@ html, body {
 }
 body {
     display: flex;
+    flex-direction: column;
     align-items: center;
     background-image: url('../asset/landing_page.png');
     background-size: cover;
@@ -15,8 +16,17 @@ body {
 }
 .container {
     display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.get-started-container {
+    display: flex;
     flex-direction: column;
     justify-content: center;
+    align-content: center;
     text-align: center;
     font-size: x-large;
     gap: 20px;
@@ -28,9 +38,9 @@ body {
 }
 .get-started{
     display: flex;
+    min-width: 200px;
     border: none;
     text-decoration: none;
-    min-width: 200px;
     background-color: #B6F6F3;
     color: black;
     border-radius: 20px;
@@ -39,4 +49,12 @@ body {
     justify-content: center;
     font-family: Poppins;
     padding: 10px 0px;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+    padding: 10px;
 }

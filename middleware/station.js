@@ -5,13 +5,24 @@ async function get_station(longtitude, latitude) {
         const conn = await promise_pool.getConnection()
         const [rows, fields] = await conn.query(`
         SELECT 
+            station_id,
             station_name, 
             longtitude, 
-            latitude
-        FROM (SELECT
+            latitude,
+            station_address,
+            charging_power,
+            CASE
+                WHEN distance < 1000 THEN CONCAT(ROUND(distance, 0), " m")
+                ELSE CONCAT(ROUND(distance / 1000, 2), " km")
+            END as distance
+        FROM (
+            SELECT
+                station_id,
                 station_name,
                 longtitude, 
-                latitude, 
+                latitude,
+                station_address,
+                charging_power,
                 ST_DISTANCE_SPHERE(point(longtitude, latitude), point(?, ?)) as distance
             from stations
             ORDER BY distance) as t1
@@ -26,10 +37,26 @@ async function get_station(longtitude, latitude) {
 async function get_normal_station(longtitude, latitude) {
     return await queryWithExceptionHandler(async() => {
         const conn = await promise_pool.getConnection()
-        const [rows, fields] = await conn.query(`SELECT * FROM (SELECT 
-                station_id, 
+        const [rows, fields] = await conn.query(`
+        SELECT
+            s.station_id, 
+            s.station_name, 
+            s.longtitude, 
+            s.latitude,
+            s.station_address,
+            s.charging_power,
+            CASE
+                WHEN distance < 1000 THEN CONCAT(ROUND(s.distance, 0), " m")
+                ELSE CONCAT(ROUND(s.distance / 1000, 2), " km")
+            END as distance
+        FROM (
+            SELECT 
+                station_id,
+                station_name, 
                 longtitude, 
                 latitude, 
+                station_address,
+                charging_power,
                 ST_DISTANCE_SPHERE(point(longtitude, latitude), point(?, ?)) as distance
             from stations
             ORDER BY distance) as s
@@ -49,10 +76,26 @@ async function get_normal_station(longtitude, latitude) {
 async function get_fast_station(longtitude, latitude) {
     return await queryWithExceptionHandler(async() => {
         const conn = await promise_pool.getConnection()
-        const [rows, fields] = await conn.query(`SELECT * FROM (SELECT 
-                station_id, 
+        const [rows, fields] = await conn.query(`
+        SELECT 
+            s.station_id,
+            s.station_name, 
+            s.longtitude, 
+            s.latitude,
+            s.station_address,
+            s.charging_power,
+            CASE
+                WHEN distance < 1000 THEN CONCAT(ROUND(s.distance, 0), " m")
+                ELSE CONCAT(ROUND(s.distance / 1000, 2), " km")
+            END as distance
+        FROM (
+            SELECT 
+                station_id,
+                station_name, 
                 longtitude, 
-                latitude, 
+                latitude,
+                station_address,
+                charging_power,
                 ST_DISTANCE_SPHERE(point(longtitude, latitude), point(?, ?)) as distance
             from stations
             ORDER BY distance) as s

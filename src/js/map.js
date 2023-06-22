@@ -1,6 +1,6 @@
 mapboxgl.accessToken = 'pk.eyJ1Ijoicm9nZXItZmVyZGluYW4iLCJhIjoiY2xoZWlkNnowMHdtaDNkczc3MHQ0cmF6dCJ9.uptRzyfzpQPPemd1_wYo_Q';
 
-function set_popup(name, address, distance, power) {
+function set_popup(id, name, address, distance, power) {
     const popup = document.createElement("div");
     popup.className = "location-box";
     
@@ -20,7 +20,7 @@ function set_popup(name, address, distance, power) {
     var img = document.createElement("img");
     img.src = "asset/location.png";
     var h7 = document.createElement("h7");
-    h7.innerHTML = distance + " km";
+    h7.innerHTML = distance;
     div2.appendChild(img);
     div2.appendChild(h7);
 
@@ -29,40 +29,39 @@ function set_popup(name, address, distance, power) {
 
     const div3 = document.createElement("div");
     div3.classList.add("popup-detail");
+    div3.classList.add("charging-power");
     var img = document.createElement("img");
     img.src = "asset/charging-power.png";
     var h7 = document.createElement("h7");
-    h7.innerHTML = power + " kWh";
+    h7.innerHTML = power + " kW";
     div3.appendChild(img);
     div3.appendChild(h7);
 
-    const btn = document.createElement("div");
+    const form = document.createElement("form");
+    form.setAttribute("action", "/station-detail");
+    form.setAttribute("method", "get");
+    form.id = id;
+    const input_station_id = document.createElement("input");
+    input_station_id.setAttribute("type", "hidden");
+
+    const btn = document.createElement("input");
     btn.className = "button-detail";
-    btn.innerHTML = "Detail";
-    btn.setAttribute("type", "button");
-    btn.setAttribute("onClick", "location.href='/station-detail'");
+    btn.value = "Detail";
+    btn.setAttribute("type", "submit");
+
+    form.appendChild(input_station_id);
+    form.appendChild(btn);
 
     popup.appendChild(div_wrapper);
     popup.appendChild(div3);
-    popup.appendChild(btn);
+    popup.appendChild(form);
     
     return popup;
 }
 
-function setupMap(coordinate, className) {
+function setupMap(coordinate, className, popup) {
     const el = document.createElement('div');
     el.className = className;
-
-    const popup = new mapboxgl.Popup({
-        offset: 25,
-        maxWidth: "auto"
-    }).setDOMContent(
-        set_popup(
-            "Electric Vehicle Charging Station",
-            "Aggrek Garuda Street No. 27",
-            2.0,
-            7
-        ));
     const marker = new mapboxgl.Marker(el)
         .setLngLat(coordinate)
         .setPopup(popup)
@@ -76,7 +75,7 @@ const map = new mapboxgl.Map({
 });
 
 var station_marker = []
-var longitude = 0;
+var longtitude = 0;
 var latitude = 0;
 // Get Current Location
 navigator.geolocation.getCurrentPosition((position)=> {
@@ -84,19 +83,31 @@ navigator.geolocation.getCurrentPosition((position)=> {
     longtitude = 106.77;
     latitude = -6.2017;
     // latitude = position.coords.latitude;
-    setupMap([longitude, latitude], "marker-user");
+    setupMap([longtitude, latitude], "marker-user", undefined);
     map.flyTo({center: [longtitude, latitude], zoom: 13});
     const params = {
         longtitude : longtitude,
         latitude : latitude
     }
+
     var resp = makeRequest("POST", "/near_station", params)
     resp.then((r) => {
         var result = JSON.parse(r)["result"]
         result.forEach((T) => {
-            console.log(T)
-            const marker = setupMap([T.longtitude, T.latitude], "marker-station")
-            station_marker.push(marker)
+            const popup = new mapboxgl.Popup({
+                offset: 25,
+                maxWidth: "auto"
+            }).setDOMContent(
+                set_popup(
+                    T.station_id,
+                    T.station_name,
+                    T.station_address,
+                    T.distance,
+                    T.charging_power
+                )
+            );
+            const marker = setupMap([T.longtitude, T.latitude], "marker-station", popup);
+            station_marker.push(marker);
         })
     })
     
@@ -114,7 +125,19 @@ function getNormalCharger() {
     resp.then((r) => {
         var result = JSON.parse(r)["result"]
         result.forEach((T) => {
-            const marker = setupMap([T.longtitude, T.latitude], "marker-normal")
+            const popup = new mapboxgl.Popup({
+                offset: 25,
+                maxWidth: "auto"
+            }).setDOMContent(
+                set_popup(
+                    T.station_id,
+                    T.station_name,
+                    T.station_address,
+                    T.distance,
+                    T.charging_power
+                )
+            );
+            const marker = setupMap([T.longtitude, T.latitude], "marker-normal", popup);
             station_marker.push(marker);
         })
     })
@@ -130,7 +153,19 @@ function getFastCharger() {
     resp.then((r) => {
         var result = JSON.parse(r)["result"]
         result.forEach((T) => {
-            const marker = setupMap([T.longtitude, T.latitude], "marker-fast");
+            const popup = new mapboxgl.Popup({
+                offset: 25,
+                maxWidth: "auto"
+            }).setDOMContent(
+                set_popup(
+                    T.station_id,
+                    T.station_name,
+                    T.station_address,
+                    T.distance,
+                    T.charging_power
+                )
+            );
+            const marker = setupMap([T.longtitude, T.latitude], "marker-fast", popup);
             station_marker.push(marker)
         })
     })

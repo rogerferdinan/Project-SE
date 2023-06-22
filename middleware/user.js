@@ -9,17 +9,16 @@ async function checkUser(email, phone_number, password) {
         SELECT * FROM users 
         WHERE email=? or phone_number=?`
         , [email, phone_number])
-        if(rows[0] !== undefined){
-            console.log(password)
-            console.log(rows[0].encrypted_password)
+        if(rows[0] !== undefined) {
             return {
                 success: true,
-                result: compare_password(password, rows[0].encrypted_password)
+                first_name: rows[0].first_name,
+                isAuthenticated: compare_password(password, rows[0].encrypted_password)
             }
         } else {
             return {
                 success: false,
-                result: "user not found"
+                message: "user not found"
             }
         }
     })

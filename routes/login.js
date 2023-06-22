@@ -21,16 +21,19 @@ loginRouter.post('/signin', async(req, res, next) => {
         return
     }
     try {
-        const success_login = await authenticate(username, password)
-        if(success_login && remember_me) {
-            req.session.loggedin = true
+        const success_login = await authenticate(username, password);
+        console.log(success_login);
+        if(success_login.success && success_login.isAuthenticated && remember_me) {
+            req.session.loggedin = true;
+            req.session.first_name = success_login.first_name;
             var hour = 60 * 60 * 1000
             req.session.cookie.maxAge = hour
             req.session.cookie.expires = new Date(Date.now() + hour)
             req.session.save( (e) => {} )
             res.redirect('/')
-        } else if (success_login) {
-            req.session.loggedin = true
+        } else if (success_login.success && success_login.isAuthenticated) {
+            req.session.loggedin = true;
+            req.session.first_name = success_login.first_name;
             res.redirect('/')
         } else {
             res.render("signin", {message: "Kredensial salah, tolong periksa ulang!"})

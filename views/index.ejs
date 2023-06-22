@@ -22,41 +22,14 @@
             <img src="asset/profile.png" class="profile"></img>
         </button>
     </a>
-    <button class="charger-button" onclick="getNormalCharger()">Normal Charger</button>
-    <button class="charger-button" onclick="getFastCharger()">Fast Charger</button>
-    <div class="location-box">
-            <div style="margin-top: 20px; margin-left: 15px;">
-                <div class="row" style="margin-left: 1px;">
-                    <div>
-                        <h5>Electric Vehicle
-                            Charging Station
-                        </h5>
-                        <h6>Anggrek Garuda Street No. 27</h6>
-                    </div>
-                    <div class="distance" style="margin-top: 8%; margin-left: 6%;">
-                        <img src="asset/location.png" style="width: 16px; height: 20px; margin-right: 8px;">
-                        <h7>2 Km</h7>
-                    </div>
-                </div>
-                <div style="margin-bottom: 2%; margin-top: 2%;">
-                    <img src="asset/charging-power.png" style="width: 25px; height: 25px;">
-                    <h7>7 kW</h7>
-                </div>
-                <div style="margin-bottom: 2%; margin-top: 2%;">
-                    <img src="asset/available.png" style="width: 25px; height: 25px;">
-                    <h7>1 of 3 available</h7>
-                </div>
-                <div style="margin-bottom: 2%; margin-top: 2%;">
-                    <img src="asset/distance.png" style="width: 25px; height: 25px;">
-                    <h7>7 min</h7>
-                </div>
-                <button type="button" class="button-detail" role="button">
-                    <a href="/station-detail" style="text-decoration: none; color: white;">
-                        Detail
-                    </a>
-                </button>
-            </div>
-    </div>
+    <button class="charger-button" onclick="getNormalCharger()">
+        <img src="../asset/button_normal.png">
+        <div>Normal Charger</div>
+    </button>
+    <button class="charger-button" onclick="getFastCharger()">
+        <img src="../asset/button_fast.png">
+        <div>Fast Charger</div>
+    </button>
 </div>
 <script src="js/map.js"></script>
 </body>

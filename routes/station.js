@@ -47,7 +47,8 @@ stationRouter.post("/fast_station", async(req, res) => {
     res.send(result)
 })
 
-stationRouter.get("/station-detail", async (req, res) => {
+stationRouter.get("/station-detail", checkLogin, async (req, res) => {
+    console.log(req.body);
     res.render("station-detail");
 })
 // GET all List Station
