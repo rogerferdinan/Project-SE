@@ -1,30 +1,30 @@
 const express = require("express")
 const checkLogin = require("../helper/check_login")
-const { get_station, get_normal_station, get_fast_station } = require("../middleware/station")
+const get_near_station = require("../feature/get_near_station")
 const stationRouter = express.Router()
 
 stationRouter.post("/near_station", async (req, res) => {
-    const longitude = req.body.longtitude
+    const longitude = req.body.longitude
     const latitude = req.body.latitude
 
     if(!longitude || !latitude) {
         res.status(400).send({
-            status: "Longtitude or Latitude cannot be empty"
+            status: "longitude or Latitude cannot be empty"
         })
         return
     }
-    result = await get_station(longitude, latitude)
+    result = await get_near_station(longitude, latitude)
     res.send(result)
 })
 
 stationRouter.post("/normal_station", async(req, res) => {
-    const longitude = req.body.longtitude
+    const longitude = req.body.longitude
     const latitude = req.body.latitude
 
     console.log(req.body)
     if(!longitude || !latitude) {
         res.status(400).send({
-            message: "Longtitude or Latitude cannot be empty"
+            message: "longitude or Latitude cannot be empty"
         })
         return
     }
@@ -33,13 +33,13 @@ stationRouter.post("/normal_station", async(req, res) => {
 })
 
 stationRouter.post("/fast_station", async(req, res) => {
-    const longitude = req.body.longtitude
+    const longitude = req.body.longitude
     const latitude = req.body.latitude
 
     console.log(req.body)
     if(!longitude || !latitude) {
         res.status(400).send({
-            message: "Longtitude or Latitude cannot be empty"
+            message: "longitude or Latitude cannot be empty"
         })
         return
     }
@@ -48,8 +48,24 @@ stationRouter.post("/fast_station", async(req, res) => {
 })
 
 stationRouter.get("/station-detail", checkLogin, async (req, res) => {
-    console.log(req.body);
-    res.render("station-detail");
+    res.redirect("/")
+})
+
+stationRouter.post("/station-detail", checkLogin, async (req, res) => {
+    const station_id = req.body.station_id;
+    const longitude = req.body.longitude;
+    const latitude = req.body.latitude;
+    var result = await get_station_detail(station_id, longitude, latitude);
+    console.log(result);
+    if(result.success) {
+        result = result.result[0];
+        res.render("station-detail", {
+            station_name: result.station_name,
+            station_address: result.station_address,
+            charging_power: result.charging_power,
+            distance: result.distance
+        });
+    }
 })
 // GET all List Station
 // Get Station Coordinate

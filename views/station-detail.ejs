@@ -28,16 +28,15 @@
                             <div style="margin-top: 20px; margin-left: 8%;">
                                 <div class="row" style="margin-left: 1px;">
                                     <div class="col" style="width: 600px;">
-                                        <h3>Electric Vehicle<br>
-                                            Charging Station
+                                        <h3><%= locals.station_name  %>
                                         </h3>
-                                        <h5>Anggrek Garuda Street No. 27</h5>
+                                        <h5><%= locals.station_address %></h5>
                                     </div>
                                     <div class="col">
                                         <img src="asset/4-stars.png" style="width: 110px; height: 23px; margin-left: 6%">
                                         <div class="distance" style="margin-top: 10%; margin-left: 6%; width: 100px; height: 40px;">
                                             <img src="asset/location.png" style="width: 16px; height: 20px; margin-right: 8px;">
-                                            <h7>2 Km</h7>
+                                            <h7><%= locals.distance  %></h7>
                                         </div>
                                     </div>
                                     
@@ -45,7 +44,7 @@
                                 <div class="row" style="margin-left: 1px;">
                                     <div class="col-lg-6" style="margin-bottom: 2%; margin-top: 2%;">
                                         <img src="asset/charging-power.png" style="width: 25px; height: 25px;">
-                                        <h7>7 kW</h7>
+                                        <h7><%= locals.charging_power %> kW</h7>
                                     </div>
                                     <div class="col-lg-6" style="margin-bottom: 2%; margin-top: 2%;">
                                         <img src="asset/cafetaria.png" style="width: 25px; height: 25px;">

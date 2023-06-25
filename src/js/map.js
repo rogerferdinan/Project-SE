@@ -20,7 +20,7 @@ function set_popup(id, name, address, distance, power) {
     var img = document.createElement("img");
     img.src = "asset/location.png";
     var h7 = document.createElement("h7");
-    h7.innerHTML = distance;
+    h7.innerHTML = distance+ " km";
     div2.appendChild(img);
     div2.appendChild(h7);
 
@@ -39,10 +39,20 @@ function set_popup(id, name, address, distance, power) {
 
     const form = document.createElement("form");
     form.setAttribute("action", "/station-detail");
-    form.setAttribute("method", "get");
+    form.setAttribute("method", "post");
     form.id = id;
     const input_station_id = document.createElement("input");
     input_station_id.setAttribute("type", "hidden");
+    input_station_id.setAttribute("name", "station_id");
+    input_station_id.setAttribute("value", id);
+    const input_longitude = document.createElement("input");
+    input_longitude.setAttribute("type", "hidden");
+    input_longitude.setAttribute("name", "longitude");
+    input_longitude.setAttribute("value", longitude);
+    const input_latitude = document.createElement("input");
+    input_latitude.setAttribute("type", "hidden");
+    input_latitude.setAttribute("name", "latitude");
+    input_latitude.setAttribute("value", latitude);
 
     const btn = document.createElement("input");
     btn.className = "button-detail";
@@ -50,6 +60,8 @@ function set_popup(id, name, address, distance, power) {
     btn.setAttribute("type", "submit");
 
     form.appendChild(input_station_id);
+    form.appendChild(input_longitude);
+    form.appendChild(input_latitude);
     form.appendChild(btn);
 
     popup.appendChild(div_wrapper);
@@ -75,21 +87,22 @@ const map = new mapboxgl.Map({
 });
 
 var station_marker = []
-var longtitude = 0;
+var longitude = 0;
 var latitude = 0;
 // Get Current Location
 navigator.geolocation.getCurrentPosition((position)=> {
-    // longtitude = position.coords.longitude;
-    longtitude = 106.77;
+    longitude = 106.77;
     latitude = -6.2017;
+    // longitude = position.coords.longitude;
     // latitude = position.coords.latitude;
-    setupMap([longtitude, latitude], "marker-user", undefined);
-    map.flyTo({center: [longtitude, latitude], zoom: 13});
+    setupMap([longitude, latitude], "marker-user", undefined);
+    map.flyTo({center: [longitude, latitude], zoom: 13});
     const params = {
-        longtitude : longtitude,
+        longitude : longitude,
         latitude : latitude
     }
 
+    
     var resp = makeRequest("POST", "/near_station", params)
     resp.then((r) => {
         var result = JSON.parse(r)["result"]
@@ -106,11 +119,10 @@ navigator.geolocation.getCurrentPosition((position)=> {
                     T.charging_power
                 )
             );
-            const marker = setupMap([T.longtitude, T.latitude], "marker-station", popup);
+            const marker = setupMap([T.longitude, T.latitude], "marker-station", popup);
             station_marker.push(marker);
         })
     })
-    
 }, () => {}, {
     enableHighAccuracy: true
 })
@@ -118,7 +130,7 @@ navigator.geolocation.getCurrentPosition((position)=> {
 function getNormalCharger() {
     deleteAllMarker()
     const params = {
-        longtitude : longtitude,
+        longitude : longitude,
         latitude : latitude
     }
     var resp = makeRequest("POST", "/normal_station", params)
@@ -137,7 +149,7 @@ function getNormalCharger() {
                     T.charging_power
                 )
             );
-            const marker = setupMap([T.longtitude, T.latitude], "marker-normal", popup);
+            const marker = setupMap([T.longitude, T.latitude], "marker-normal", popup);
             station_marker.push(marker);
         })
     })
@@ -146,7 +158,7 @@ function getNormalCharger() {
 function getFastCharger() {
     deleteAllMarker()
     const params = {
-        longtitude : longtitude,
+        longitude : longitude,
         latitude : latitude
     }
     var resp = makeRequest("POST", "/fast_station", params)
@@ -165,7 +177,7 @@ function getFastCharger() {
                     T.charging_power
                 )
             );
-            const marker = setupMap([T.longtitude, T.latitude], "marker-fast", popup);
+            const marker = setupMap([T.longitude, T.latitude], "marker-fast", popup);
             station_marker.push(marker)
         })
     })
