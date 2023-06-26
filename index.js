@@ -36,6 +36,6 @@ app.use(stationRouter)
 app.use(profileRouter)
 app.use(reserveRouter)
 
-app.listen(8000, () => {
+app.listen(8000, "0.0.0.0", () => {
     console.log("http://localhost:8000")
 })

@@ -1,6 +1,6 @@
 mapboxgl.accessToken = 'pk.eyJ1Ijoicm9nZXItZmVyZGluYW4iLCJhIjoiY2xoZWlkNnowMHdtaDNkczc3MHQ0cmF6dCJ9.uptRzyfzpQPPemd1_wYo_Q';
 
-function set_popup(id, name, address, distance, power) {
+function set_popup(id, name, address, distance, duration, power) {
     const popup = document.createElement("div");
     popup.className = "location-box";
     
@@ -20,7 +20,11 @@ function set_popup(id, name, address, distance, power) {
     var img = document.createElement("img");
     img.src = "asset/location.png";
     var h7 = document.createElement("h7");
-    h7.innerHTML = distance+ " km";
+    if(distance >= 1000) {
+        h7.innerHTML = (distance/1000).toFixed(2)+ " km";
+    } else {
+        h7.innerHTML = distance + " m";
+    }
     div2.appendChild(img);
     div2.appendChild(h7);
 
@@ -36,6 +40,16 @@ function set_popup(id, name, address, distance, power) {
     h7.innerHTML = power + " kW";
     div3.appendChild(img);
     div3.appendChild(h7);
+
+    const div4 = document.createElement("div");
+    div4.classList.add("popup-detail");
+    div4.classList.add("charging-power");
+    var img = document.createElement("img");
+    img.src = "asset/distance.png";
+    var h7 = document.createElement("h7");
+    h7.innerHTML = duration + " min";
+    div4.appendChild(img);
+    div4.appendChild(h7);
 
     const form = document.createElement("form");
     form.setAttribute("action", "/station-detail");
@@ -66,6 +80,7 @@ function set_popup(id, name, address, distance, power) {
 
     popup.appendChild(div_wrapper);
     popup.appendChild(div3);
+    popup.appendChild(div4);
     popup.appendChild(form);
     
     return popup;
@@ -91,8 +106,8 @@ var longitude = 0;
 var latitude = 0;
 // Get Current Location
 navigator.geolocation.getCurrentPosition((position)=> {
-    longitude = 106.77;
-    latitude = -6.2017;
+    longitude = 106.817;
+    latitude = -6.169;
     // longitude = position.coords.longitude;
     // latitude = position.coords.latitude;
     setupMap([longitude, latitude], "marker-user", undefined);
@@ -116,6 +131,7 @@ navigator.geolocation.getCurrentPosition((position)=> {
                     T.station_name,
                     T.station_address,
                     T.distance,
+                    T.duration,
                     T.charging_power
                 )
             );

@@ -28,15 +28,18 @@
                             <div style="margin-top: 20px; margin-left: 8%;">
                                 <div class="row" style="margin-left: 1px;">
                                     <div class="col" style="width: 600px;">
-                                        <h3><%= locals.station_name  %>
-                                        </h3>
+                                        <h3><%= locals.station_name %></h3>
                                         <h5><%= locals.station_address %></h5>
                                     </div>
                                     <div class="col">
-                                        <img src="asset/4-stars.png" style="width: 110px; height: 23px; margin-left: 6%">
                                         <div class="distance" style="margin-top: 10%; margin-left: 6%; width: 100px; height: 40px;">
                                             <img src="asset/location.png" style="width: 16px; height: 20px; margin-right: 8px;">
-                                            <h7><%= locals.distance  %></h7>
+                                            <h7><% if(locals.distance > 1000) { %>
+                                                <%= Math.round(locals.distance/1000) + " km" %>
+                                                <% } else { %>
+                                                <%= locals.distance + " m" %>
+                                                <% } %>
+                                            </h7>
                                         </div>
                                     </div>
                                     
@@ -64,7 +67,7 @@
                                 <div class="row" style="margin-left: 1px;">
                                     <div class="col-lg-6" style="margin-bottom: 2%; margin-top: 2%;">
                                         <img src="asset/distance.png" style="width: 25px; height: 25px;">
-                                        <h7>7 min</h7>
+                                        <h7><%= locals.time_travel %> min</h7>
                                     </div>
                                     <div class="col-lg-6" style="margin-bottom: 2%; margin-top: 2%;">
                                         <img src="asset/restroom.png" style="width: 25px; height: 25px;">
@@ -78,45 +81,20 @@
             </div>
             <hr style="color: #092e51; margin-top: 2%; margin-bottom: 2%; border-width: 3px;">
             <div class="d-flex justify-content-between">
+                <% for (var i=0; i<locals.comments.length;i++) { %>
                 <div class="location-box">
                     <div style="margin-top: 3px; margin-left: 15px;">
                         <div class="d-flex align-items-center text-center" style="margin-left: 1px;">
                             <img src="asset/Profile_1.png" style="width: 30px; height: 30px;">
-                            <p style="margin-left: 3%; margin-top: 4%;">Kenny</p>
+                            <p style="margin-left: 3%; margin-top: 4%;"><%= locals.comments[i].first_name %></p>
                         </div>
                         <img src="asset/4-stars.png" style="width: 100px; height: 20px; margin-left: 1px;">
                         <p style="font-size: small; margin-top: 3%; margin-left: 1px; margin-right: 15px;">
-                            Electric Vehicle Charging Station impressed me on multiple levels. 
-                            It's incredible. We've seen amazing results already.
+                            <%= locals.comments[i].comment %>
                         </p>
                     </div>
                 </div>
-                <div class="location-box" style="margin-bottom: 2%;">
-                    <div style="margin-top: 3px; margin-left: 15px;">
-                        <div class="d-flex align-items-center text-center" style="margin-left: 1px;">
-                            <img src="asset/Profile_1.png" style="width: 30px; height: 30px;">
-                            <p style="margin-left: 3%; margin-top: 4%;">Johnny</p>
-                        </div>
-                        <img src="asset/4-stars.png" style="width: 100px; height: 20px; margin-left: 1px;">
-                        <p style="font-size: small; margin-top: 3%; margin-left: 1px; margin-right: 15px;">
-                            It's exactly what I've been looking for. 
-                            Electric Vehicle Charging Station  is the real deal!
-                        </p>
-                    </div>
-                </div>
-                <div class="location-box">
-                    <div style="margin-top: 3px; margin-left: 15px;">
-                        <div class="d-flex align-items-center text-center" style="margin-left: 1px;">
-                            <img src="asset/Profile_1.png" style="width: 30px; height: 30px;">
-                            <p style="margin-left: 3%; margin-top: 4%;">Erik Ten Hag</p>
-                        </div>
-                        <img src="asset/4-stars.png" style="width: 100px; height: 20px; margin-left: 1px;">
-                        <p style="font-size: small; margin-top: 3%; margin-left: 1px; margin-right: 15px;">
-                            Absolutely wonderful! Just what I was looking for. Dude, your stuff is the bomb!
-                        </p>
-                    </div>
-                </div>
-                
+                <% } %>                
             </div>
             <div class="text-center justify-content-center mt-3 mb-5" style="margin-top: 10%;">
                 <button type="button" id="logoutButton" class="button-detail" style="border-radius: 8px;">

@@ -1,4 +1,5 @@
-const get_near_station = require("./feature/get_near_station");
-const get_matrix = require("./helper/get_matrix");
+const get_station_detail = require("./feature/get_station_detail");
 
-get_near_station(106.78, -6.22)
+get_station_detail(1, 106.7, -6.2).then((T) => {
+    console.log(T);
+});
