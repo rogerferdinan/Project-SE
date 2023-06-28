@@ -1,0 +1,10 @@
+#making-reservation {
+    background-color: #97e6e1;
+    position: absolute;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1;
+}

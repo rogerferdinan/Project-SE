@@ -18,22 +18,17 @@
     <div class="d-flex flex-column align-items-center" style="margin-top: 3%;">
         <h1 class="text-center">Reservation Detail</h1>
         <div class="receipt d-flex flex-column align-items-center justify-content-center">
-            <div>
+            <!-- <div>
                  <img src="asset/qr-code.png" style="height: 150px; width: 150px;">
-            </div>
+            </div> -->
             <div style="margin-top: 3%;">
-                <p>Date    : Tue, 20-06-2023</p>
-                <p>Station : GT Station</p>
-                <p>Spot    : XX</p>
-                <p>Payment : IDR 15.000</p>
-                <p>VA      : 3901 xxxx xxxx</p>
+                <p>Date    : <%= locals.date %> </p>
+                <p>Station : <%= locals.station %> </p>
+                <p>Payment : IDR <%= locals.price %> </p>
+                <p>VA      : <%= locals.va %> </p>
             </div>
             <div>
-                <button type="button" class="btn btn-light">
-                    <a href="/" style="text-decoration: none; color: black; font-family: Poppins;">
-                        Continue
-                    </a>
-                </button>
+                <button type="button" class="btn btn-light" onclick="location.href='/reservation-history'">Continue</button>
             </div>
         </div>
     </div>    

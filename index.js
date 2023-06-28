@@ -9,7 +9,12 @@ const logoutRouter = require("./routes/logout")
 const stationRouter = require("./routes/station")
 const profileRouter = require("./routes/profile")
 const reserveRouter = require("./routes/reserve")
+const moment = require("moment");
 
+app.use((req, res, next)=>{
+    res.locals.moment = moment;
+    next();
+});
 // app.use(cookieParser())
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())

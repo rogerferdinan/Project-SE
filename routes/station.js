@@ -25,7 +25,6 @@ stationRouter.post("/normal_station", async(req, res) => {
     const longitude = req.body.longitude
     const latitude = req.body.latitude
 
-    console.log(req.body)
     if(!longitude || !latitude) {
         res.status(400).send({
             message: "longitude or Latitude cannot be empty"
@@ -40,7 +39,6 @@ stationRouter.post("/fast_station", async(req, res) => {
     const longitude = req.body.longitude
     const latitude = req.body.latitude
 
-    console.log(req.body)
     if(!longitude || !latitude) {
         res.status(400).send({
             message: "longitude or Latitude cannot be empty"
@@ -64,6 +62,7 @@ stationRouter.post("/station-detail", checkLogin, async (req, res) => {
     if(station_detail.success) {
         station_detail = station_detail.result[0];
         res.render("station-detail", {
+            station_id: station_detail.station_id,
             station_name: station_detail.station_name,
             station_address: station_detail.station_address,
             charging_power: station_detail.charging_power,

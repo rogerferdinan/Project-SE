@@ -5,7 +5,7 @@ body{
 }
 .bg{
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     background-size: cover;
     background-position: center;
     background: linear-gradient(180deg, #A2E3DE 0%, #9DE6E1 16.15%, #97E6E1 33.85%, #90E3DD 51.04%, #83E1D9 70.31%, #6FB6B8 100%);
@@ -14,13 +14,11 @@ body{
     padding-top: 37px;
     padding-bottom: 49px;
     padding-right: 40px;
-    
-
 }
 
 .outer-container {
     position:relative;
-    height: 100%;
+    min-height: 100%;
     width: auto;
     background: #2B496A;
     box-shadow: 16px 16px 4px rgba(0, 0, 0, 0.25);
@@ -63,10 +61,12 @@ body{
 }
 
 .list-container{
-
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
- .text{
+.text{
     padding-top:200px ;
     width: 80%;
 
@@ -81,6 +81,7 @@ body{
 }
 
 .date{
+    margin-top: 10px;
     padding-left: 3px;
     font-family: 'Poppins';
     font-style: normal;
@@ -93,8 +94,7 @@ body{
 .detail-container{
     display: flex;
     align-items: center;
-    height: 80px;
-    top: 321px;
+    min-height: 80px;
     justify-content: space-around;
 
     background: #FFFFFF;
@@ -113,6 +113,7 @@ body{
     font-weight: 600;
     font-size: 25px;
     line-height: 38px;
+    width: 240px;
 }
 
 .time{
@@ -123,7 +124,6 @@ body{
     line-height: 22px;
 }
 .type{
-
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;

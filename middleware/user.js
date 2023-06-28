@@ -12,6 +12,7 @@ async function checkUser(email, phone_number, password) {
         if(rows[0] !== undefined) {
             return {
                 success: true,
+                user_id: rows[0].user_id,
                 first_name: rows[0].first_name,
                 isAuthenticated: compare_password(password, rows[0].encrypted_password)
             }
@@ -29,18 +30,21 @@ async function addUser(first_name, last_name, email, phone_number, password) {
         const hash_password = hash_string(password);
         const conn = await promise_pool.getConnection();
         await conn.beginTransaction();
-        const [user_id, ] = await conn.query(`
-            select case
-                when count(user_id) = 0 then "U001"
-                else CONCAT("U",LPAD(right(user_id, 3) + 1, 3, 0))
-                end as user_id
-            from users
-            order by user_id DESC`)
+        const [user, ] = await conn.query(`
+        SELECT COALESCE(
+            (SELECT 
+                CONCAT("U", LPAD( TRIM(LEADING "US" FROM user_id)+1, 8, 0 )) 
+            FROM users 
+            ORDER BY user_id DESC 
+            LIMIT 1),
+            CONCAT("US", LPAD(1, 8, 0))
+        ) as reserve_id
+        `)
         const [rows, ] = await conn.query(`
             INSERT INTO users
             (user_id, first_name, last_name, email, phone_number, encrypted_password) 
             VALUE(?, ?, ?, ?, ?, ?)`, 
-            [user_id[0].user_id, first_name, last_name, email, phone_number, hash_password]);
+            [user[0].user_id, first_name, last_name, email, phone_number, hash_password]);
         await conn.commit();
         return {
             success: true,
@@ -65,8 +69,7 @@ async function changePassword(email, new_password) {
     SELECT count(email)
     FROM users
     WHERE email = ?
-    `, [email]);
-    
+    `, [email]);    
     await conn.commit();
     return rows;
 }

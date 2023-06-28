@@ -13,41 +13,37 @@
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-    
-    <div class="bg"> 
+    <div class="bg">
+        <a href="/">
+            <img src="asset/Back Button.png" alt="Back Button" class="img-fluid" style="width: 68px; height: 50px;">
+        </a>
         <div class="outer-container"> 
             <div class="top-container">
                 <div class ="icon"> <img src="../asset/Frame 59.png" alt="" class ="icon">
-                    <div class="user-name"><h1> Jason</h1>
+                    <div class="user-name"><h1> <%= locals.first_name  %></h1>
                </div>
             </div>
             <div class="text">Transaction History</div>
             
+            <% for (const [key, value] of Object.entries(locals.history)) { %>
             <div class="list-container">
-                <div class="date"><p>Tue, 20-06-2023</p></div>
+                <div class="date"><p><%= key %></p></div>
+                <% for (var v of value) { %>
                 <div class="detail-container">
                     <img src="../asset/Group 18.png" alt="" class="icon-detail">
-                    <div class="station-name">SPKLU Stasiun Senen
+                    <div class="station-name"><%= v.station_name %>
                         <div class="time">
-                            09.00 AM
+                            <%= v.reserve_time %>
                         </div>
                     </div>
-
-                        <li class="type">Fast Charger</li>
-                        <li class="type">Rp20.000,00,-</li>
-                   
-                
-
+                        <li class="type"><%= v.type_name %> Charger</li>
+                        <li class="type">Rp <%= v.reserve_price %></li>
                 </div>
+                <% } %>
             </div>
-            
-            
-            </div>    
-            
+            <% } %>
+            </div>
         </div>
     </div>
-    
-     
-     
 </body>
 </html>

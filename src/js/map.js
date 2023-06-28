@@ -162,6 +162,7 @@ function getNormalCharger() {
                     T.station_name,
                     T.station_address,
                     T.distance,
+                    T.duration,
                     T.charging_power
                 )
             );
@@ -190,6 +191,7 @@ function getFastCharger() {
                     T.station_name,
                     T.station_address,
                     T.distance,
+                    T.duration,
                     T.charging_power
                 )
             );

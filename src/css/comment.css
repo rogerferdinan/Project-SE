@@ -1,0 +1,21 @@
+.comment-container {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+}
+
+.comment-container::-webkit-scrollbar {
+    width: 0;
+}
+
+.comment {
+    display: flex;
+    width: 340px;
+    height: 185px;
+    flex-shrink: 0;
+    background: white;
+    border: 3px solid #000000;
+    box-shadow: -3px 3px 0px #000000;
+    border-radius: 10px;
+    font-family: "Poppins";
+}

@@ -1,1 +1,0 @@
-const { queryWithExceptionHandler, promisePool : promise_pool } = require("./pool_connection");
