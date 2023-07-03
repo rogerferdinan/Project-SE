@@ -1,5 +1,3 @@
-mapboxgl.accessToken = 'pk.eyJ1Ijoicm9nZXItZmVyZGluYW4iLCJhIjoiY2xoZWlkNnowMHdtaDNkczc3MHQ0cmF6dCJ9.uptRzyfzpQPPemd1_wYo_Q';
-
 function set_popup(id, name, address, distance, duration, power) {
     const popup = document.createElement("div");
     popup.className = "location-box";
@@ -96,9 +94,9 @@ function setupMap(coordinate, className, popup) {
     return marker;
 }
 
-const map = new mapboxgl.Map({
-    container: 'map', // container ID
-    style: 'mapbox://styles/mapbox/navigation-day-v1', // style URL
+var map = L.map("map", {
+    center: [latitude, longitude],
+    zoom: 15
 });
 
 var station_marker = []
