@@ -1,3 +1,2 @@
-User belum login (Home page) -> redirect ke login
-User sudah login (Login Page) -> redirect ke home
-User sudah login (Register Page) -> redirect ke home
+A collaborative project with a focus on developing electric car charging reservation system.
+This project uses Node.js as the backend, EJS for dynamic web content, MySQL as the database, and OpenStreetMap for map visualization.
