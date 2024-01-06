@@ -9,7 +9,7 @@ async function get_station_detail_db(station_id) {
             s.station_name,
             s.station_address,
             s.latitude,
-            s.longitude,
+            s.longtitude,
             s.charging_power
         FROM stations s
         WHERE station_id=?

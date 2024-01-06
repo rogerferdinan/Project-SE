@@ -42,7 +42,7 @@
 </div>
 <!-- <script src="js/map.js"></script> -->
 <script>
-    var longitude = 106;
+    var longtitude = 106;
     var latitude = -6;
     var station_marker = [];
     function makeRequest(method, url, params) {
@@ -128,10 +128,10 @@
         input_station_id.setAttribute("type", "hidden");
         input_station_id.setAttribute("name", "station_id");
         input_station_id.setAttribute("value", id);
-        const input_longitude = document.createElement("input");
-        input_longitude.setAttribute("type", "hidden");
-        input_longitude.setAttribute("name", "longitude");
-        input_longitude.setAttribute("value", longitude);
+        const input_longtitude = document.createElement("input");
+        input_longtitude.setAttribute("type", "hidden");
+        input_longtitude.setAttribute("name", "longtitude");
+        input_longtitude.setAttribute("value", longtitude);
         const input_latitude = document.createElement("input");
         input_latitude.setAttribute("type", "hidden");
         input_latitude.setAttribute("name", "latitude");
@@ -143,7 +143,7 @@
         btn.setAttribute("type", "submit");
 
         form.appendChild(input_station_id);
-        form.appendChild(input_longitude);
+        form.appendChild(input_longtitude);
         form.appendChild(input_latitude);
         form.appendChild(btn);
 
@@ -178,7 +178,7 @@
     function getNormalCharger() {
         deleteAllMarker();
         const params = {
-            longitude: longitude,
+            longtitude: longtitude,
             latitude: latitude
         };
         var resp = makeRequest("POST", "/normal_station", params)
@@ -193,7 +193,7 @@
                     T.duration,
                     T.charging_power
                 );
-                const marker = setupMap([T.latitude, T.longitude], normal_icon, popup);
+                const marker = setupMap([T.latitude, T.longtitude], normal_icon, popup);
                 station_marker.push(marker);
             })
         })
@@ -201,7 +201,7 @@
     function getFastCharger() {
         deleteAllMarker();
         const params = {
-            longitude: longitude,
+            longtitude: longtitude,
             latitude: latitude
         };
         var resp = makeRequest("POST", "/fast_station", params)
@@ -216,14 +216,14 @@
                     T.duration,
                     T.charging_power
                 );
-                const marker = setupMap([T.latitude, T.longitude], fast_icon, popup);
+                const marker = setupMap([T.latitude, T.longtitude], fast_icon, popup);
                 station_marker.push(marker);
             })
         })
     }
     // Initialize Map
     var map = L.map("map", {
-        center: [latitude, longitude],
+        center: [latitude, longtitude],
         zoom: 16,
         zoomControl: false
     });
@@ -246,18 +246,19 @@
 
     navigator.geolocation.getCurrentPosition((position) => {
         latitude = -6.169;
-        longitude = 106.817;
-        // longitude = position.coords.longitude;
+        longtitude = 106.817;
+        // longtitude = position.coords.longtitude;
         // latitude = position.coords.latitude;
         
-        setupMap([latitude, longitude], user_icon, undefined);
-        map.flyTo([latitude, longitude]);
+        setupMap([latitude, longtitude], user_icon, undefined);
+        map.flyTo([latitude, longtitude]);
 
         const params = {
-            longitude: longitude,
+            longtitude: longtitude,
             latitude: latitude
         }
         var resp = makeRequest("POST", "/near_station", params);
+        console.log(resp)
         resp.then((r) => {
             var result = JSON.parse(r)["result"]
             result.forEach((T) => {
@@ -269,7 +270,8 @@
                     T.duration,
                     T.charging_power
                 );
-                const marker = setupMap([T.latitude, T.longitude], default_icon, popup);
+                console.log(T)
+                const marker = setupMap([T.latitude, T.longtitude], default_icon, popup);
                 station_marker.push(marker);
             })
         });

@@ -1,6 +1,6 @@
 const { queryWithExceptionHandler, promisePool : promise_pool } = require("./pool_connection");
 
-async function get_station_db(city, latitude, longitude, type) {
+async function get_station_db(city, latitude, longtitude, type) {
     const where = [];
     const params = [];
     var query = 
@@ -9,13 +9,13 @@ async function get_station_db(city, latitude, longitude, type) {
             s.station_name,
             s.station_address,
             s.latitude,
-            s.longitude,
+            s.longtitude,
             s.charging_power,
             CEIL(s.distance) as distance,
             CEIL(s.distance/13/60) as duration
-        FROM (SELECT *, ST_DISTANCE_SPHERE(POINT(longitude, latitude), POINT(?, ?)) as distance 
+        FROM (SELECT *, ST_DISTANCE_SPHERE(POINT(longtitude, latitude), POINT(?, ?)) as distance 
             FROM stations) as s`
-    params.push(longitude);
+    params.push(longtitude);
     params.push(latitude);
     if(city) {
         where.push("s.city=?");
@@ -36,6 +36,7 @@ async function get_station_db(city, latitude, longitude, type) {
     return await queryWithExceptionHandler(async() => {
         const conn = await promise_pool.getConnection()
         const [rows, ] = await conn.query(query, params);
+        console.log(rows);
         return {
             success: true,
             result: rows
